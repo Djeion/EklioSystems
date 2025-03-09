@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import '../App.css';
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import du CSS d'AOS
 
 
 // Importer les images
@@ -33,6 +36,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Home() {
+
+    useEffect(() => {
+        AOS.init({
+          duration: 1000, // Durée des animations en ms
+          once: true, // Exécute l'animation une seule fois
+        });
+      }, []);
+
     return (
         <div>
             <div className="spacer"></div>
