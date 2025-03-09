@@ -1,42 +1,964 @@
-#root {
-  max-width: 1280px;
+@import url('https://fonts.googleapis.com/css2?family=Actor&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:wght@400;700&display=swap');
+/*@import 'maplibre-gl/dist/maplibre-gl.css';*/
+
+html {
+  height: 100%;
+  width: 100%;
+  background-image: url("assets/exemple.png");
+  font-family: "Poppins", serif;
+  color: white;
+  background-size: cover;
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  font-family: "Poppins", serif;
+}
+
+
+/* Les navigateurs appliquent par défaut des marges et du padding à certains éléments (notamment body, h1, et p)*/
+/* Il faut les enlever*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.spacer {
+  background-color: transparent;
+  width: 100%;
+  flex-grow: 1;
+  /* L'élément prend l'espace restant */
+}
+
+/*Titres des différentes parties*/
+.section-title {
+  text-align: center;
+  font-size: 40px; 
+  color: whitesmoke;
+  margin-bottom: 40px; 
+  margin-top: 40px;
+}
+
+
+/*************************************************************************/
+/* SECTION HEADER                                                        */
+/*************************************************************************/
+
+.header {
+  background-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 50%, transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: white;
+  height: 9vh;
+  /* Assure que le header occupe suffisamment d'espace */
+  width: 100%;
+  /* Ajuste la largeur */
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s ease-in-out;
+  z-index: 8;
+}
+
+
+.central-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Style des boutons */
+.custom-button {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  padding: 8px 40px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0.8;
+}
+
+.custom-button:hover {
+  background-color: gray;
+}
+
+/* Conteneur du logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.logohead {
+  height: 40px;
+}
+
+/* Conteneur du bouton connexion */
+.connexion-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Media Queries pour le responsive */
+
+/* Petit écran (téléphones) */
+@media (max-width: 900px) {
+  .header {
+    padding: 10px;
+    height: auto;
+    /* Ajuste la hauteur si nécessaire */
+    flex-wrap: wrap;
+    /* Permet aux éléments de passer à la ligne */
+  }
+
+  .central-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .custom-button {
+    padding: 6px 20px;
+    font-size: 14px;
+  }
+
+  .logohead {
+    height: 30px;
+  }
+}
+
+/* Très petit écran (petits téléphones) */
+@media (max-width: 600px) {
+  .header {
+    padding: 5px;
+  }
+
+  .custom-button {
+    padding: 5px 15px;
+    font-size: 12px;
+  }
+
+  .logohead {
+    height: 25px;
+  }
+
+  .central-container {
+    gap: 2px;
+  }
+}
+
+
+/*************************************************************************/
+/* SECTION PRÉSENTATION                                                  */
+/*************************************************************************/
+
+.contentprez {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Garde seulement cette ligne pour une section pleine hauteur */
+  color: white;
+  background-image: linear-gradient(to bottom, black 0%, black 10%, transparent 100%), url("assets/exemple.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  position: sticky;
+  /* Fixe la section en haut lorsqu'on défile */
+  top: 0;
+  z-index: 1;
+  /* Assure que la section soit visible par-dessus les autres */
+  min-height: 100vh;
+}
+
+.presentation {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5rem;
+  font-size: 40px;
+  text-align: center;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  /* Texte invisible au départ */
+  transform: translateY(50px);
+  /* Décalage du texte vers le bas */
+  animation: fadeInUp 2.2s ease-out forwards;
+  /* Animation uniquement sur le texte */
+}
+
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*************************************************************************/
+/* SECTION GEOLOCALISATION                                               */
+/*************************************************************************/
+.geoloc {
+  padding-top: 5rem;
+  text-align: center;
+  position: relative;
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+  /* Arrière-plan principal : image avec transparence en haut */
+  background-color:rgb(22, 24, 26);
+  background-position: center;
+  background-size: cover;
+ 
+  /* Appliquer un masque de transparence avec un dégradé ultra court */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 5%, rgba(0, 0, 0, 1) 100%);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 100%);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+ 
+  z-index: 2;
+}
+
+.geoloc h1 {
+  color: #213b48;
+  max-width: 800px; /* Limite la largeur du texte */
+  width: 80%; /* S'adapte aux écrans plus petits */
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+
+
+
+/*************************************************************************/
+/* SECTION TRACABILITE                                                   */
+/*************************************************************************/
+
+.trace {
+  background-color: rgb(22, 24, 26);
+  padding: 4rem 0;
+  z-index: 2;
+  position: relative;
+  bottom: 0;
+}
+
+.trace-grid {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.trace-card {
+  text-align: left;
+}
+
+
+.trace-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 40px;
+}
+
+.feature-item {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  position: relative;
+  color: whitesmoke;
+}
+
+.feature-item::before {
+  content: '✔';
+  position: absolute;
+  left: 0;
+  color: #213b48;
+  font-weight: bold;
+}
+
+.trace-image img {
+  max-width: 100%;
+  height: ce;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.trace-image img:hover {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .trace-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+  }
+
+  .section-title::after {
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
+  .trace-features {
+      align-items: center;
+  }
+
+  .feature-item {
+      padding-left: 0;
+      text-align: center;
+  }
+
+  .feature-item::before {
+      display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+      font-size: 2rem;
+  }
+  
+  .feature-item {
+      font-size: 1rem;
+  }
+}
+
+
+
+/*************************************************************************/
+/* SECTION SOLUTIONS                                                     */
+/*************************************************************************/
+
+/* Style de la section */
+.solution {
+  background-color: rgb(22, 24, 26);
+  color: whitesmoke;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+  z-index: 2;
+  position: relative;
+  bottom: 0;
+}
+
+/* Style de la grid */
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cartes par ligne */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Style de la carte */
+.solution-card {
   padding: 2rem;
   text-align: center;
+  background: transparent;
+}
+
+.solution-card h2 {
+  color: #213b48;
+  margin-top: 10px;
+  font-size: 20px;
+
+}
+
+.solution-card p {
+  color: whitesmoke;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* Style de l'icone */
+.solution-icon {
+  background: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;  /* Taille du cercle */
+  height: 80px;
+  border-radius: 10%; /* Rend le conteneur circulaire */
+  overflow: hidden;
+  margin: 0 auto; /* Centre horizontalement */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transition douce pour l'effet */
+}
+
+.logo-solution {
+  width: 70%;  /* Ajuste la taille de l'image */
+  height: 70%;
+  object-fit: contain; /* Assure que l'image ne soit pas déformée */
+}
+
+
+/* Effet au survol pour l'icon */
+.solution-icon:hover {
+  transform: scale(1.1); /* Agrandissement léger au survol */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au survol */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .solution-grid {
+    grid-template-columns: 1fr; /* Une seule carte par ligne pour les petits écrans */
+  }
+
+  .solution-icon {
+    padding: 10px;
+  }
+}
+
+
+/*************************************************************************/
+/* SECTION CARACTERISTIQUES                                              */
+/*************************************************************************/
+
+.caract{
+  background-color: rgb(22, 24, 26);
+  color: white;
+  text-align: center;
+  width: 100%; 
+  padding: 10px 0; 
+  z-index: 2;
+  position: relative; 
+  bottom: 0;
+
+}
+/* Conteneur des cartes */
+.caract-grid {
+  margin-top: 40px;
+  display: flex; /* Utilisation de flexbox pour l'alignement */
+  justify-content: space-between; /* Espace égal entre les cartes */
+  padding: 0 80px; /* Espacement sur les côtés si nécessaire */
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+
+.caract-grid-2 {
+  margin-top: 40px;
+  display: flex; /* Utilisation de flexbox pour l'alignement */
+  justify-content: center; /* Centrer les boîtes horizontalement */
+  gap: 100px; /* Espacement entre les cartes */
+  padding: 0 20px; /* Espacement sur les côtés */
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+
+/* Styles des cartes */
+.caract-card {
+  width: 25vw; /* Un quart de la page */
+  min-width: 250px; /* Largeur minimale pour éviter que la carte soit trop petite */
+  max-width: 300px; /* Largeur maximale pour contrôler la taille des cartes */
+  background: radial-gradient(#012f51, #155C8F);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.caract-card:hover {
+  transform: scale(1.05); /* Zoom léger sur la carte */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Augmente l'ombre lors du survol */
+}
+
+.caract-card h2 {
+  color: #537281;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.caract-card p {
+  color: whitesmoke;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Conteneur de l'icône */
+.caract-icon {
+  background: whitesmoke;
+  display: flex; /* Permet de centrer l'image */
+  align-items: center; /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
+  width: 65px;
+  height: 65px;
+  border-radius: 50%; /* Rend l'élément circulaire */
+  overflow: hidden; /* Cache les coins pour s'assurer que l'image reste bien dans le rond */
+  margin: 0 auto
+}
+
+/* Image */
+.logo-carac {
+  justify-items: center;
+  width: 60%; /* Remplit son conteneur */
+  height: 60%; /* Remplit son conteneur */
+  object-fit: cover; /* Permet de remplir sans déformer */
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* Conteneur des cartes */
+  .caract-grid {
+    flex-direction: column; /* Aligne les cartes verticalement */
+    padding: 0 20px; /* Réduit l'espacement latéral sur les petits écrans */
+    gap: 40px; /* Ajoute un espacement uniforme entre toutes les cartes */
+  }
+
+  .caract-grid-2 {
+    flex-direction: column; /* Aligne les cartes verticalement */
+    gap: 40px; /* Espacement uniforme entre les cartes */
+  }
+
+  /* Styles des cartes */
+  .caract-card {
+    width: 80vw; /* Augmente la largeur des cartes pour mieux occuper l'écran */
+    min-width: 250px; /* Largeur minimale pour éviter que la carte soit trop petite */
+    max-width: 90vw; /* Limite la largeur à 90% de l'écran */
+    margin: 0; /* Enlève les marges latérales */
+    padding: 15px; /* Réduit le padding pour plus d'espace sur les petits écrans */
+  }
+
+  .caract-card h2 {
+    font-size: 18px; /* Réduit la taille du titre pour les petits écrans */
+  }
+
+  .caract-card p {
+    font-size: 12px; /* Réduit la taille du texte */
+  }
+
+  /* Icone */
+  .caract-icon {
+    padding: 8px; /* Réduit le padding autour de l'icône */
+  }
+
+}
+
+
+/*************************************************************************/
+/* SECTION CERTIFICATIONS                                                */
+/*************************************************************************/
+
+.certif {
+  background-color: rgb(22, 24, 26);
+  text-align: center;
+  width: 100%; 
+  padding: 10px 0; 
+  z-index: 2;
+  position: relative; 
+  bottom: 0;
+}
+
+.certif-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px; 
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.certif-card h2 {
+  color: #213b48;
+  margin-bottom: 35px; 
+  font-size: 28px; 
+}
+
+.certif-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; 
+  justify-content: center;
+}
+
+.certif-items span {
+  margin-top: 8px;
+  background: #071f35;
+  color: whitesmoke;
+  padding: 6px 16px; 
+  border-radius: 60px; /* angles arrondis */
+  font-weight: 500; /* épaisseur texte */
+}
+
+.logo-certif {
+  max-width: 150px;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .certifi-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .certif-card {
+    padding: 24px; /* 1.5rem = 24px */
+  }
+
+  .certif-items span {
+    font-size: 13px; /* 0.8rem = 13px */
+  }
+}
+
+/*************************************************************************/
+/* SECTION ABOUT US                                                      */
+/*************************************************************************/
+
+.about-us{
+  background-color: rgb(178, 162, 21);
+  color: white;
+  text-align: center;
+  width: 100%; 
+  padding: 10px 0; 
+  z-index: 2;
+  position: relative; 
+  bottom: 0;
+
+}
+
+/*************************************************************************/
+/* SECTION PARTENARIAT                                                   */
+/*************************************************************************/
+
+
+.Partenariat {
+  background-color: rgb(252, 229, 210);
+  text-align: center;
+  padding: 5px 0px;
+  color: black;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.Partenariat h1 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.Partenariat h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.industrial, .financial {
+  margin: 50px 0;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 150px;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  max-width: 150px;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  transform: scale(1.1);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  display: inline-block;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+
+/*************************************************************************/
+/* SECTION PARTENARIAT                                                   */
+/*************************************************************************/
+
+
+.Partenariat {
+  padding: 4%;
+  background-color: #e9f6ff;
+  text-align: center;
+  color: #155C8F;
+  height: auto;
+  position: relative;
+  z-index: 3;
+  border-bottom: 10px solid transparent;
+  /* Garder la bordure transparente pour laisser de la place */
 }
 
-.card {
-  padding: 2em;
+.Partenariat::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  /* Positionner juste en dessous de la bordure */
+  left: 0;
+  width: 100%;
+  height: 10px;
+  /* Taille de la "bordure" dégradée */
+  background: linear-gradient(to bottom, rgba(233, 246, 255, 1), rgba(233, 246, 255, 0.99), rgba(233, 246, 255, 0.9), rgba(233, 246, 255, 0));
+  /* Dégradé plus prononcé */
 }
 
-.read-the-docs {
-  color: #888;
+
+.Partenariat h2 {
+  margin-bottom: 20px;
+  color: #155C8F;
 }
+
+.industrial,
+.financial {
+  margin: 30px 0;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 80px;
+}
+
+.logo {
+  max-width: 200px;
+  max-height: 200px;
+  transition: transform 0.5s ease;
+  opacity: 0;
+}
+
+.logo2 {
+  max-width: 250px;
+  max-height: 200px;
+  transition: transform 0.5s ease;
+  opacity: 0;
+}
+
+
+.logo:hover {
+  transform: scale(1.1) !important;
+}
+
+.logo2:hover {
+  transform: scale(1.1) !important;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+
+
+/*************************************************************************/
+/* SECTION FOOTER                                                        */
+/*************************************************************************/
+
+.footer {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+  position: relative;
+  padding: 8px 8px;
+}
+
+.footer strong {
+  color: #155C8F;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-around;
+  max-width: max-content;
+  margin: 0 auto;
+  padding: 10px 0;
+
+}
+
+.column {
+  width: 48%;
+  text-align: left;
+  padding: 10px;
+}
+
+.column h2 {
+  margin-bottom: 10px;
+}
+
+
+
+/*************************************************************************/
+/* SECTION LOGIN                                                         */
+/*************************************************************************/
+
+
+/* En-tête du formulaire de connexion */
+.auth-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Logo cliquable dans l'authenticator */
+.auth-logo {
+
+  justify-content: center;
+  width: 250px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.auth-logo:hover {
+  opacity: 0.8;
+}
+
+
+/*************************************************************************/
+/* SECTION DASHBOARD                                                     */
+/*************************************************************************/
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 🔹 S'assure que le footer est en bas */
+  align-items: center;
+  min-height: 100vh; /* 🔹 Empêche le découpage */
+  width: 100vw; /* 🔹 Assure une largeur complète */
+  overflow: hidden; /* 🔹 Évite le débordement */
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 5%;
+}
+
+.map-container {
+  width: 60%;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+
+/* 🔹 Style du menu déroulant */
+.tracker-menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgb(255, 255, 255);
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.tracker-menu summary {
+  font-weight: bold;
+  list-style: none;
+  cursor: pointer;
+}
+
+.tracker-menu summary::after {
+  content: " ▼";
+  font-size: 12px;
+}
+
+.tracker-list {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tracker-list label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tracker-list input {
+  cursor: pointer;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* Toute la hauteur de l'écran */
+  width: 100vw;   /* Largeur complète */
+}
+
+
