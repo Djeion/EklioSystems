@@ -39,8 +39,8 @@ function Home() {
 
     useEffect(() => {
         AOS.init({
-          duration: 1000, // Durée des animations en ms
-          once: true, // Exécute l'animation une seule fois
+          duration: 1000, 
+          once: false, 
         });
       }, []);
 
