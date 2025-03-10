@@ -6,6 +6,7 @@ const Map: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const [selectedTrackers, setSelectedTrackers] = useState<string[]>([]);
 
+  
   // 🔹 Fake trackers (à remplacer plus tard par des vrais)
   const trackers = [
     { id: "tracker-1", name: "Tracker Alpha" },
