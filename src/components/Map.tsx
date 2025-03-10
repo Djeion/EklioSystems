@@ -6,29 +6,27 @@ const Map: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    
-    console.log("ENV VARIABLES:", import.meta.env);
-
-    const apiKey = import.meta.env.VITE_AMAZON_LOCATION_API_KEY;
-    const awsRegion = "eu-west-1";
-    const mapStyle = "Standard";
+    const apiKey = import.meta.env.VITE_AMAZON_LOCATION_API_KEY; // Récupération de la clé API
+    const awsRegion = "eu-west-1"; // Remplace par ta région AWS
+    const mapName = "dashboard-map"; // Le nom de la carte que tu veux utiliser
 
     if (!apiKey) {
       console.error("Amazon Location Service API Key is missing!");
       return;
     }
 
-    const styleUrl = `https://maps.geo.${awsRegion}.amazonaws.com/v2/styles/${mapStyle}/descriptor?key=${apiKey}`;
+    // URL du style spécifique à ta carte Amazon Location Service
+    const styleUrl = `https://maps.geo.${awsRegion}.amazonaws.com/maps/v0/maps/${mapName}/style-descriptor?key=${apiKey}`;
 
     // Initialisation de la carte
     const map = new maplibregl.Map({
       container: mapContainerRef.current!,
-      style: styleUrl,
-      center: [25.24, 36.31], // Position initiale (longitude, latitude)
-      zoom: 2, // Niveau de zoom initial
+      style: styleUrl, // Utilisation du style personnalisé
+      center: [2.3522, 48.8566], // [Longitude, Latitude] - Exemple pour Paris
+      zoom: 5, // Niveau de zoom initial
     });
 
-    return () => map.remove(); // Nettoyage lors du démontage du composant
+    return () => map.remove(); // Nettoyage de la carte au démontage du composant
   }, []);
 
   return <div ref={mapContainerRef} style={{ width: "100%", height: "500px" }} />;
