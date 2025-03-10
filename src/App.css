@@ -865,6 +865,7 @@ a {
 /*************************************************************************/
 
 .dashboard-page {
+  
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* 🔹 S'assure que le footer est en bas */
@@ -878,11 +879,13 @@ a {
 }
 
 .dashboard-content {
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding-top: 5%;
+  
 }
 
 .map-container {
