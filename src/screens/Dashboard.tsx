@@ -16,7 +16,7 @@ function Dashboard() {
         <div className="dashboard-page">
             <Header />
             <div className="dashboard-content">
-                <h1>Welcome, {user?.username || "Guest"} 👋</h1>
+                <h1>Welcome, {user?.signInDetails?.loginId?.split("@")[0].split(".")[0] || "Guest"} 👋</h1>
                 <p>This is your secure area</p>
                 <Map />
 
