@@ -66,8 +66,8 @@ export const Header = () => {
         </div>
       )}
 
-      {/* Bouton Connexion - Visible seulement si l'utilisateur n'est PAS connecté */}
-      {!user && location.pathname !== "/dashboard" && (
+      {/* 🔹 Bouton Connexion - Toujours visible si l'utilisateur n'est PAS connecté */}
+      {!user && (
         <div className="connexion-container">
           <Link to="/dashboard">
             <button className="custom-button" aria-label="Aller à la page de connexion">Login</button>
@@ -75,8 +75,8 @@ export const Header = () => {
         </div>
       )}
 
-      {/* Bouton Déconnexion - Visible UNIQUEMENT si l'utilisateur est connecté ET sur `/dashboard` */}
-      {user && location.pathname === "/dashboard" && (
+      {/* 🔹 Bouton Déconnexion - Toujours visible si l'utilisateur est connecté */}
+      {user && (
         <div className="connexion-container">
           <button className="custom-button" onClick={handleSignOut} aria-label="Déconnexion">Logout</button>
         </div>
