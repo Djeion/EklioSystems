@@ -21,8 +21,8 @@ function Dashboard() {
     const [accessToken, setAccessToken] = useState<string | null>(null);
     const [trackers, setTrackers] = useState<TrackerData[]>([]);
 
-       // Récupération du token dès que le composant est monté
-       useEffect(() => {
+    // Récupération du token dès que le composant est monté
+    useEffect(() => {
         const getToken = async () => {
             try {
                 const session = await fetchAuthSession();
@@ -105,34 +105,37 @@ function Dashboard() {
                 <Map />
 
                 {accessToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
+                <h2>Token Cognito :</h2>
+                <p style={{ wordBreak: "break-all" }}>{accessToken}</p>
+
                 {/* Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
 
                 <h2>Trackers reçus :</h2>
-            {trackers.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tracker ID</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
-                            <th>User ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {trackers.map((tracker) => (
-                            <tr key={tracker.tracker_id}>
-                                <td>{tracker.tracker_id}</td>
-                                <td>{tracker.latitude}</td>
-                                <td>{tracker.longitude}</td>
-                                <td>{tracker.user_id}</td>
+                {trackers.length > 0 ? (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tracker ID</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>User ID</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>Aucun tracker disponible.</p>
-            )}
+                        </thead>
+                        <tbody>
+                            {trackers.map((tracker) => (
+                                <tr key={tracker.tracker_id}>
+                                    <td>{tracker.tracker_id}</td>
+                                    <td>{tracker.latitude}</td>
+                                    <td>{tracker.longitude}</td>
+                                    <td>{tracker.user_id}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>Aucun tracker disponible.</p>
+                )}
             </div>
             <Footer />
         </div>
