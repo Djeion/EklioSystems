@@ -53,7 +53,7 @@ function Dashboard() {
     const callLambda = async () => {
         try {
             const response = await fetch(
-                "https://your-api-gateway-id.execute-api.your-region.amazonaws.com/prod/your-lambda-endpoint",
+                "https://sdodu45cej.execute-api.eu-west-1.amazonaws.com/dev",
                 {
                     method: "GET",
                     headers: {
@@ -95,8 +95,13 @@ function Dashboard() {
     // }, []);
 
     return (
+
+
         <div className="dashboard-page">
-            <Header />
+            {/* Section Header */}
+            <div className="header">
+                <Header />
+            </div>
             <div className="dashboard-content">
                 <h1>Welcome, {user?.signInDetails?.loginId?.split("@")[0].split(".")[0] || "Guest"} 👋</h1>
                 <p>This is your secure area</p>
