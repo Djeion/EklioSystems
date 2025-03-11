@@ -34,15 +34,16 @@ import icon_physique from '../assets/certification/icon-physique.png';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Contact from '../components/Contact';
 
 function Home() {
 
     useEffect(() => {
         AOS.init({
-          duration: 1000, 
-          once: false, 
+            duration: 1000,
+            once: false,
         });
-      }, []);
+    }, []);
 
     return (
         <div>
@@ -307,6 +308,10 @@ function Home() {
                         </a>
                     </div>
                 </div>
+            </div>
+            {/* Section Contact */}
+            <div className="Contact">
+                <Contact />
             </div>
             {/* Section Footer */}
             <div className="footer">

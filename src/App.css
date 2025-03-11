@@ -783,6 +783,112 @@ a {
   text-decoration: none;
 }
 
+/*************************************************************************/
+/* CONTACT SECTION                                                       */
+/*************************************************************************/
+
+/* Contact page container */
+.Contact {
+  background-image:linear-gradient(to top, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 5%, transparent 100%),url("assets/bc-contact.jpg") ;
+  background-position: center;
+  padding: 50px 20px;
+  color: #fff;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  z-index: 2 ;
+  margin-top: -30px;
+}
+
+/* Contact form container */
+.contact-container {
+  background: #ffffff39;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  color: #333;
+  z-index: 2 ;
+}
+
+/* Title and description */
+.contact-title {
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.contact-description {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #f5f5f5;
+}
+
+.sucecss-message{
+  font-size: 1.rem;
+  padding-top: 10px;
+  color: #f5f5f5;
+}
+
+/* Input fields */
+.contact-field,
+.contact-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.contact-field:focus,
+.contact-textarea:focus {
+  border-color: #216291;
+  outline: none;
+}
+
+/* Textarea specific styling */
+.contact-textarea {
+  resize: none;
+}
+
+/* Submit button */
+.contact-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #155C8F;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #216291;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 20px;
+  }
+
+  .contact-title {
+    font-size: 1.5rem;
+  }
+
+  .contact-description {
+    font-size: 0.9rem;
+  }
+}
+
 
 
 /*************************************************************************/
