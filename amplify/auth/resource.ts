@@ -9,3 +9,6 @@ export const auth = defineAuth({
     email: true,
   },
 });
+
+
+
