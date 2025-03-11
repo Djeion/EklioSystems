@@ -7,9 +7,19 @@ import Footer from '../components/Footer';
 import Map from '../components/Map';
 //import { fetchTrackers, Tracker } from "../api/api"; 
 
+interface TrackerData {
+    tracker_id: string;
+    latitude: number;
+    longitude: number;
+    user_id: string;
+}
+
 function Dashboard() {
+
+
     const { user } = useAuthenticator((context) => [context.user]);
     const [accessToken, setAccessToken] = useState<string | null>(null);
+    const [trackers, setTrackers] = useState<TrackerData[]>([]);
 
        // Récupération du token dès que le composant est monté
        useEffect(() => {
@@ -39,10 +49,11 @@ function Dashboard() {
     }, [accessToken]);
 
     // Fonction d'appel du Lambda avec le token
+    // Fonction d'appel du Lambda avec le token
     const callLambda = async () => {
         try {
             const response = await fetch(
-                "https://sdodu45cej.execute-api.eu-west-1.amazonaws.com/dev",
+                "https://your-api-gateway-id.execute-api.your-region.amazonaws.com/prod/your-lambda-endpoint",
                 {
                     method: "GET",
                     headers: {
@@ -53,12 +64,17 @@ function Dashboard() {
             );
 
             const data = await response.json();
-            console.log("Réponse du Lambda:", data);
+            console.log("Données reçues du Lambda:", data);
+
+            if (Array.isArray(data)) {
+                setTrackers(data); // Stocke les trackers si la réponse est un tableau
+            } else {
+                console.warn("Les données reçues ne sont pas un tableau:", data);
+            }
         } catch (error) {
             console.error("Erreur lors de l’appel du Lambda:", error);
         }
     };
-
 
 
 
@@ -91,22 +107,32 @@ function Dashboard() {
                 {accessToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
                 {/* Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
-                {/* {loading ? (
-                    <p>Loading trackers...</p>
-                ) : trackers.length > 0 ? (
-                    <ul>
+
+                <h2>Trackers reçus :</h2>
+            {trackers.length > 0 ? (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tracker ID</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {trackers.map((tracker) => (
-                            <li key={tracker.tracker_id}>
-                                <strong>ID:</strong> {tracker.tracker_id}, 
-                                <strong> Latitude:</strong> {tracker.latitude}, 
-                                <strong> Longitude:</strong> {tracker.longitude}, 
-                                <strong> User:</strong> {tracker.user_id}
-                            </li>
+                            <tr key={tracker.tracker_id}>
+                                <td>{tracker.tracker_id}</td>
+                                <td>{tracker.latitude}</td>
+                                <td>{tracker.longitude}</td>
+                                <td>{tracker.user_id}</td>
+                            </tr>
                         ))}
-                    </ul>
-                ) : (
-                    <p>No trackers found.</p>
-                )} */}
+                    </tbody>
+                </table>
+            ) : (
+                <p>Aucun tracker disponible.</p>
+            )}
             </div>
             <Footer />
         </div>
