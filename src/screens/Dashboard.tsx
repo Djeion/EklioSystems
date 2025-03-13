@@ -1,7 +1,6 @@
 import '../App.css';
 import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { fetchAuthSession } from "@aws-amplify/auth";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
@@ -18,37 +17,16 @@ function Dashboard() {
 
 
     const { user } = useAuthenticator((context) => [context.user]);
-    const [accessToken, setAccessToken] = useState<string | null>(null);
+    const [IdToken] = useState<string | null>(null);
     const [trackers, setTrackers] = useState<TrackerData[]>([]);
 
-    // Récupération du token dès que le composant est monté
-    useEffect(() => {
-        const getToken = async () => {
-            try {
-                const session = await fetchAuthSession();
-                const token = session.tokens?.accessToken?.toString();
-                if (token) {
-                    setAccessToken(token);
-                    console.log("Token Cognito récupéré:", token);
-                } else {
-                    console.warn("Aucun token disponible");
-                }
-            } catch (error) {
-                console.error("Erreur lors de la récupération du token:", error);
-            }
-        };
 
-        getToken();
-    }, []);
-
-    // Appel du Lambda dès que accessToken est disponible
     useEffect(() => {
-        if (accessToken) {
+        if (IdToken) {
             callLambda();
         }
-    }, [accessToken]);
+    }, [IdToken]);
 
-    // Fonction d'appel du Lambda avec le token
     // Fonction d'appel du Lambda avec le token
     const callLambda = async () => {
         try {
@@ -57,7 +35,7 @@ function Dashboard() {
                 {
                     method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${accessToken}`,
+                        "Authorization": `Bearer ${IdToken}`,
                         "Content-Type": "application/json"
                     }
                 }
@@ -78,22 +56,6 @@ function Dashboard() {
 
 
 
-    // const [trackers, setTrackers] = useState<Tracker[]>([]);
-    // const [loading, setLoading] = useState<boolean>(true);
-
-    // // Récupérer les trackers à l'affichage du dashboard
-    // useEffect(() => {
-    //     async function loadTrackers() {
-    //         setLoading(true);
-    //         const data = await fetchTrackers();
-    //         if (data) {
-    //             setTrackers(data);
-    //         }
-    //         setLoading(false);
-    //     }
-    //     loadTrackers();
-    // }, []);
-
     return (
 
 
@@ -109,7 +71,7 @@ function Dashboard() {
                 {/* Carte affichant les trackers */}
                 <Map />
 
-                {accessToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
+                {IdToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
 
                 {/* Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
