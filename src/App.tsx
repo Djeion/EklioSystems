@@ -14,7 +14,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <div className="auth-container"> {/* ✅ Ajout de ce wrapper */}
+              <div className="auth-container">
                 <Authenticator>
                   <Dashboard />
                 </Authenticator>

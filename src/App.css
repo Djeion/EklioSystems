@@ -17,7 +17,6 @@ body {
   display: flex; /* Flexbox pour aligner les éléments */
   flex-direction: column; /* Organise les éléments en colonne */
   overflow: auto; /* Permet le défilement si besoin */
-  background-image: url("assets/background_new2.jpg");
 }
 
 
@@ -53,9 +52,6 @@ body {
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-
-
-  
   /* État initial de l'animation */
   opacity: 0;
   transform: translateY(30px);
@@ -731,7 +727,7 @@ body {
 /*************************************************************************/
 
 .about-us{
-  background-color: rgb(178, 162, 21);
+
   color: white;
   text-align: center;
   width: 100%; 
@@ -999,22 +995,30 @@ a {
 .dashboard-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 🔹 S'assure que le footer est en bas */
   align-items: center;
-  overflow: hidden; /* 🔹 Évite le débordement */
-  background-size: cover; 
+  justify-content: flex-start; /* S'assure que le contenu commence bien sous le header */
+  background-image: url("assets/background_new2.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  min-height: 100vh; /* 🔹 Permet de couvrir toute la hauteur de l'écran */
   width: 100%;
-
 }
 
+
 .dashboard-content {
+  margin-top: 9vh;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 20%;
+  padding-top: 30vh;
+  background-image: url("assets/background_new2.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
   
 }
 
@@ -1092,4 +1096,8 @@ a {
   align-items: center;
   height: 100vh;  /* Toute la hauteur de l'écran */
   width: 100vw;   /* Largeur complète */
+  background-image: url("assets/background_new2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
