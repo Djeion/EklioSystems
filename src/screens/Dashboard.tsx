@@ -1,10 +1,10 @@
 import '../App.css';
 import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { fetchAuthSession } from 'aws-amplify/auth'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
-//import { fetchTrackers, Tracker } from "../api/api"; 
 
 interface TrackerData {
     tracker_id: string;
@@ -17,8 +17,28 @@ function Dashboard() {
 
 
     const { user } = useAuthenticator((context) => [context.user]);
-    const [IdToken] = useState<string | null>(null);
+    const [IdToken, setIdToken] = useState<string | null>(null);
     const [trackers, setTrackers] = useState<TrackerData[]>([]);
+
+    useEffect(() => {
+        const getToken = async () => {
+            try {
+                const session = await fetchAuthSession(); 
+                const token = session.tokens?.idToken?.toString();  // Récupération du IdToken
+
+                if (token) {
+                    setIdToken(token);
+                    console.log("IdToken récupéré:", token); // Vérification du token
+                } else {
+                    console.warn("Aucun IdToken trouvé !");
+                }
+            } catch (error) {
+                console.error("Erreur lors de la récupération du IdToken:", error);
+            }
+        };
+
+        getToken();
+    }, []);
 
 
     useEffect(() => {
