@@ -1,26 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Actor&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:wght@400;700&display=swap');
 /*@import 'maplibre-gl/dist/maplibre-gl.css';*/
 
-html {
-  height: 100%;
-  width: 100%;
-  background-image: url("assets/exemple.png");
-  font-family: "Poppins", serif;
-  color: white;
-  background-size: cover;
+/*************************************************************************/
+/* GENERAL                                                               */
+/*************************************************************************/
 
+html {
+  height: 100%; /* Permet au body de prendre toute la hauteur */
+  background-image: url("assets/background_new2.jpg");
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  font-family: "Poppins", serif;
+  margin: 0; /* Enlève les marges par défaut */
+  padding: 0; /* Enlève les paddings par défaut */
+  height: 100%; /* Prend toute la hauteur */
+  display: flex; /* Flexbox pour aligner les éléments */
+  flex-direction: column; /* Organise les éléments en colonne */
+  overflow: auto; /* Permet le défilement si besoin */
+  background-image: url("assets/background_new2.jpg");
 }
+
 
 
 /* Les navigateurs appliquent par défaut des marges et du padding à certains éléments (notamment body, h1, et p)*/
@@ -39,81 +38,96 @@ body {
   /* L'élément prend l'espace restant */
 }
 
-/*Titres des différentes parties*/
+/* Titres des sections */
 .section-title {
-  text-align: center;
-  font-size: 40px; 
-  color: whitesmoke;
-  margin-bottom: 40px; 
-  margin-top: 40px;
+  text-align: center; /* Centrer le texte */
+  font-size: 50px; /* Taille du texte */
+  letter-spacing:1px;
+  color: whitesmoke; /* Couleur claire */
+  margin-bottom: 40px; /* Marge en bas */
+  margin-top: 30px; /* Marge en haut */
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold; /* Police en gras */
+  text-transform: uppercase; /* Mettre tout le texte en majuscules */
+  background: radial-gradient(circle, rgba(255,255,255,1) 10%,#FAF7EA 100%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+
+  
+  /* État initial de l'animation */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
+/* Animation quand le titre entre dans la fenêtre */
+.section-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /*************************************************************************/
 /* SECTION HEADER                                                        */
 /*************************************************************************/
 
 .header {
-  background-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 50%, transparent 100%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  color: white;
-  height: 9vh;
-  /* Assure que le header occupe suffisamment d'espace */
-  width: 100%;
-  /* Ajuste la largeur */
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: transform 0.5s ease-in-out;
-  z-index: 8;
-}
+  background-image: linear-gradient(to bottom, #9EC3CE 0%, #9EC3CE 1%, transparent 100%);
+  display: flex; /* Utilisation de Flexbox pour l'agencement */
+  align-items: center; /* Aligne les éléments verticalement au centre */
+  justify-content: space-between; /* Espace entre les éléments */
+  padding: 10px 20px; /* Espacement interne */
+  color: whitesmoke; /* Couleur du texte */
+  height: 9vh; /* Hauteur du header */
+  width: 100%; /* Largeur de 100% */
+  position: fixed; /* Fixe le header en haut */
+  top: 0; /* Positionne en haut de la page */
+  left: 0; /* Aligne à gauche */
+  z-index: 3; /* Priorité d'affichage */
 
+}
 
 .central-container {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+  display: flex; /* Flexbox pour organiser les éléments */
+  gap: 10px; /* Espacement entre les éléments */
+  justify-content: center; /* Centre les éléments horizontalement */
 }
 
-/* Style des boutons */
 .custom-button {
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-  padding: 8px 40px;
-  font-size: 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, opacity 0.3s ease;
-  margin: 10px;
-  background-color: rgba(0, 0, 0, 0);
-  opacity: 0.8;
+  color:#FAF7EA; /* Couleur du texte */
+  border: 1px solid #FAF7EA; /* Bordure blanche */
+  padding: 8px 40px; /* Espacement interne du bouton */
+  font-size: 16px; /* Taille du texte */
+  border-radius: 10px; /* Bords arrondis */
+  cursor: pointer; /* Curseur pointer au survol */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Animation au survol */
+  margin: 10px; /* Marge autour du bouton */
+  background-color: rgba(0, 0, 0, 0); /* Fond transparent */
+  opacity: 0.9; /* Légère transparence */
 }
 
 .custom-button:hover {
-  background-color: gray;
+  background-color: #e67331cd; /* Change la couleur de fond au survol */
 }
 
-/* Conteneur du logo */
 .logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1;
+  display: flex; /* Flexbox pour organiser les éléments */
+  align-items: center; /* Aligne les éléments au centre */
+  justify-content: flex-start; /* Aligne à gauche */
+  flex: 1; /* Permet de prendre toute la largeur disponible */
 }
 
 .logohead {
-  height: 40px;
+  height: 40px; /* Taille du logo */
 }
 
-/* Conteneur du bouton connexion */
 .connexion-container {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  flex: 1; /* Prend toute la largeur restante */
+  display: flex; /* Flexbox pour aligner les éléments */
+  justify-content: flex-end; /* Aligne à droite */
 }
+
 
 /* Media Queries pour le responsive */
 
@@ -167,96 +181,166 @@ body {
 /* SECTION PRÉSENTATION                                                  */
 /*************************************************************************/
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0; /* Début invisible */
+    transform: translateY(50px); /* Position initiale décalée */
+  }
+  100% {
+    opacity: 1; /* Deviens visible */
+    transform: translateY(0); /* Retourne à la position initiale */
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1; /* Début visible */
+    transform: translateY(0); /* Position initiale */
+  }
+  100% {
+    opacity: 0; /* Deviens invisible */
+    transform: translateY(-50px); /* Déplacement vers le haut */
+  }
+}
+
 .contentprez {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  /* Garde seulement cette ligne pour une section pleine hauteur */
-  color: white;
-  background-image: linear-gradient(to bottom, black 0%, black 10%, transparent 100%), url("assets/exemple.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  position: sticky;
-  /* Fixe la section en haut lorsqu'on défile */
-  top: 0;
-  z-index: 1;
-  /* Assure que la section soit visible par-dessus les autres */
-  min-height: 100vh;
+  display: flex; /* Utilisation de Flexbox */
+  flex-direction: column; /* Organise les éléments en colonne */
+  justify-content: center; /* Centrer verticalement */
+  align-items: center; /* Centrer horizontalement */
+  height: 100vh; /* Hauteur égale à la taille de la fenêtre */
+  color: whitesmoke; /* Couleur du texte */
+  background-image: linear-gradient(to bottom, #9EC3CE 0%, #9EC3CE 8%, transparent 40%), url("assets/background_new2.jpg");
+  background-size: cover; /* L'image couvre toute la zone */
+  background-repeat: no-repeat; /* Pas de répétition de l'image */
+  background-position: top; /* Positionner l'image en haut */
+  position: sticky; /* Reste fixé en haut lorsqu'on fait défiler */
+  top: 0; /* Fixe la position à 0 */
+  z-index: 1; /* Définit l'ordre d'empilement */
+  min-height: 100vh; /* Hauteur minimale de la fenêtre */
 }
 
 .presentation {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 5rem;
-  font-size: 40px;
-  text-align: center;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  /* Texte invisible au départ */
-  transform: translateY(50px);
-  /* Décalage du texte vers le bas */
-  animation: fadeInUp 2.2s ease-out forwards;
-  /* Animation uniquement sur le texte */
+  margin: 0; /* Pas de marges */
+  display: flex; /* Utilisation de Flexbox */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+  padding: 0 15rem; /* Espacement horizontal autour du texte */
+  font-size: 40px; /* Taille du texte */
+  text-align: center; /* Centrer le texte */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Ombre portée pour le texte */
+  opacity: 0; /* Texte initialement invisible */
+  transform: translateY(50px); /* Texte initialement décalé */
+  animation: fadeInUp 2.2s ease-out forwards; /* Animation d'entrée */
 }
 
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.fade-out {
+  animation: fadeOut 2.2s ease-out forwards; /* Animation de sortie */
 }
 
 /*************************************************************************/
 /* SECTION GEOLOCALISATION                                               */
 /*************************************************************************/
 .geoloc {
-  padding-top: 5rem;
-  text-align: center;
-  position: relative;
-  width: 100vw;
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
- 
-  /* Arrière-plan principal : image avec transparence en haut */
-  background-color:rgb(22, 24, 26);
-  background-position: center;
-  background-size: cover;
- 
-  /* Appliquer un masque de transparence avec un dégradé ultra court */
-  -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 5%, rgba(0, 0, 0, 1) 100%);
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 100%);
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
- 
-  z-index: 2;
+  margin: 20px; /* Marge autour de la section */
+  margin-left: 100px; /* Marge à gauche */
+  margin-right: 100px; /* Marge à droite */
+  padding-top: 32px; /* Espacement du contenu avec le haut */
+  text-align: center; /* Centrage du texte */
+  position: relative; /* Permet d'utiliser des éléments positionnés */
+  width: auto; /* Largeur s'adapte au contenu */
+  height: 50vh; /* Hauteur de la section à 50% de la hauteur de la fenêtre */
+  display: flex; /* Flexbox pour organiser les éléments */
+  flex-direction: column; /* Organisation en colonne */
+  align-items: center; /* Centrage horizontal */
+  justify-content: center; /* Centrage vertical */
+
+  background-color: rgba(203, 218, 223, 0.4); /* Arrière-plan gris semi-transparent */
+  background-position: center; /* Centrage de l'image de fond */
+  background-size: cover; /* Image couvre toute la section */
+  border-radius: 50px; /* Coins arrondis */
+  
+  backdrop-filter: blur(4px); /* Flou de l'arrière-plan */
+
+  z-index: 2; /* Met cette section au-dessus des autres éléments */
 }
 
+/* Style du titre principal */
 .geoloc h1 {
-  color: #213b48;
-  max-width: 800px; /* Limite la largeur du texte */
-  width: 80%; /* S'adapte aux écrans plus petits */
-  font-size: 1.8rem;
+  color: transparent;
+  background: linear-gradient(45deg, #123D55, #2C6B82); /* Dégradé bleu */
+  background-clip: text; /* Applique le dégradé uniquement sur le texte */
+  -webkit-background-clip: text;
+  font-size: 40px;
   font-weight: 600;
   line-height: 1.4;
+  max-width: 800px;
+  width: 80%;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Ombre légère */
 }
 
 
+/* Conteneur des technologies */
+.technologies-container {
+  display: grid; /* Utilise une grille CSS */
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+  gap: 32px; /* Espacement entre les éléments */
+  max-width: 1200px; /* Largeur maximale du conteneur */
+  margin: 0 auto; /* Centrage du conteneur */
+  margin-top: 30px; /* Espacement au-dessus de la section */
+}
+
+/* Section d'une technologie individuelle */
+.technology-section {
+  margin: 10px; /* Espacement autour de chaque section */
+  padding: 15px 20px; /* Espacement interne */
+  background-color:#155c8f; /* Couleur de fond bleu-gris */
+  border-radius: 50px; /* Coins arrondis */
+  display: inline-flex; /* Flexbox pour centrer le contenu */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+  position: relative; /* Position par rapport à son parent */
+  overflow: hidden; /* Empêche l'extension du halo à l'extérieur */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition fluide */
+}
+
+/* Titre dans chaque section de technologie */
+.technology-section h2 {
+  color: whitesmoke; /* Couleur du texte */
+  font-size: 18px; /* Taille du texte */
+  font-weight: 500; /* Poids de la police */
+  text-align: center; /* Centrage du texte */
+  position: relative; /* Position par rapport à son parent */
+  z-index: 2; /* Texte au-dessus du halo */
+}
+
+/* Halo autour de chaque section de technologie */
+.technology-section::before {
+  content: ''; /* Crée un élément pseudo pour le halo */
+  position: absolute; /* Position absolue du halo */
+  top: -15px; /* Position du halo sur les côtés et en bas */
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  background: rgba(255, 255, 255, 0.15); /* Halo transparent */
+  border-radius: 50px; /* Halo arrondi */
+  z-index: 1; /* Halo derrière le texte */
+  opacity: 0; /* Halo invisible par défaut */
+  transition: opacity 0.3s ease, box-shadow 0.3s ease; /* Transition pour l'effet */
+}
+
+/* Effet de halo au survol */
+.technology-section:hover::before {
+  opacity: 1; /* Halo visible au survol */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Lueur autour du halo */
+}
+
+/* Effet au survol de la section */
+.technology-section:hover {
+  transform: scale(1.05); /* Agrandissement au survol */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombre autour de la section */
+  background-color: #9EC3CE; /* Changement de couleur au survol */
+}
 
 
 /*************************************************************************/
@@ -264,86 +348,66 @@ body {
 /*************************************************************************/
 
 .trace {
-  background-color: rgb(22, 24, 26);
-  padding: 4rem 0;
-  z-index: 2;
-  position: relative;
-  bottom: 0;
+  background-color: #123d55bf; /* Fond semi-transparent */
+  backdrop-filter: blur(5px); /* Flou de l'arrière-plan */
+  margin: 25px; /* Marge autour de la section */
+  padding: 4rem 0; /* Espacement vertical de la section */
+  z-index: 2; /* Place la section au-dessus des autres éléments */
+  position: relative; /* Positionnement relatif pour un contrôle plus précis */
+  bottom: 0; /* Place la section tout en bas */
+  border-radius: 5px;
 }
 
 .trace-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+  max-width: 1200px; /* Largeur maximale du conteneur */
+  margin: 0 auto; /* Centrage du conteneur */
+  padding: 0 20px; /* Padding horizontal pour éviter que le contenu touche les bords */
+  display: grid; /* Grille CSS pour organiser les éléments */
+  grid-template-columns: 1fr 1fr; /* Deux colonnes de taille égale */
+  gap: 3rem; /* Espacement entre les éléments */
+  align-items: center; /* Aligne verticalement les éléments */
 }
 
 .trace-card {
-  text-align: left;
+  text-align: left; /* Aligne le texte à gauche */
 }
 
-
 .trace-features {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 40px;
+  display: flex; /* Utilisation de Flexbox pour aligner les éléments en colonne */
+  flex-direction: column; /* Aligne les éléments de haut en bas */
+  gap: 1.2rem; /* Espacement entre les éléments */
+  margin-top: 40px; /* Marge au-dessus de la section */
+ 
 }
 
 .feature-item {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  padding-left: 1.5rem;
-  position: relative;
-  color: whitesmoke;
+  font-size: 1.1rem; /* Taille du texte */
+  line-height: 1.6; /* Hauteur de ligne pour améliorer la lisibilité */
+  padding-left: 1.5rem; /* Décalage à gauche pour un alignement propre */
+  position: relative; /* Positionnement relatif pour le pseudo-élément */
+  color: whitesmoke; /* Couleur du texte en blanc cassé */
 }
 
 .feature-item::before {
-  content: '✔';
-  position: absolute;
-  left: 0;
-  color: #213b48;
-  font-weight: bold;
+  content: '✔'; /* Symbole de coche avant chaque élément */
+  position: absolute; /* Positionne le symbole de coche */
+  left: 0; /* Aligne le symbole de coche à gauche */
+  color: #9EC3CE;/* Couleur du symbole de coche */
+  font-weight: bold; /* Met le symbole en gras */
 }
 
 .trace-image img {
-  max-width: 100%;
-  height: ce;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+  max-width: 100%; /* L'image occupe toute la largeur de son conteneur */
+  height: auto; /* Hauteur automatique pour conserver les proportions */
+  border-radius: 10px; /* Coins arrondis de l'image */
+  transition: transform 0.3s ease; /* Animation lors du survol */
 }
 
 .trace-image img:hover {
-  transform: scale(1.03);
+  transform: scale(1.03); /* Légère augmentation de la taille au survol */
 }
 
-@media (max-width: 768px) {
-  .trace-container {
-      grid-template-columns: 1fr;
-      text-align: center;
-  }
 
-  .section-title::after {
-      left: 50%;
-      transform: translateX(-50%);
-  }
-
-  .trace-features {
-      align-items: center;
-  }
-
-  .feature-item {
-      padding-left: 0;
-      text-align: center;
-  }
-
-  .feature-item::before {
-      display: none;
-  }
-}
 
 @media (max-width: 480px) {
   .section-title {
@@ -363,70 +427,74 @@ body {
 
 /* Style de la section */
 .solution {
-  background-color: rgb(22, 24, 26);
-  color: whitesmoke;
-  text-align: center;
-  width: 100%;
-  padding: 10px 0;
-  z-index: 2;
-  position: relative;
-  bottom: 0;
+  background-color:  #123d55bf; /* Fond semi-transparent */
+  backdrop-filter: blur(5px); /* Flou de l'arrière-plan */
+  margin: 25px; /* Marge autour de la section */
+  color: whitesmoke; /* Couleur du texte */
+  text-align: center; /* Centrer le texte */
+  width: auto; /* Largeur automatique pour s'adapter au contenu */
+  padding: 10px 0; /* Espacement vertical */
+  z-index: 2; /* Place la section au-dessus des autres éléments */
+  position: relative; /* Positionnement relatif */
+  bottom: 0; /* Aligne la section en bas */
+  border-radius: 5px;
 }
 
 /* Style de la grid */
 .solution-grid {
-  display: grid;
+  display: grid; /* Utilisation de la grille CSS */
   grid-template-columns: repeat(4, 1fr); /* 4 cartes par ligne */
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 2rem; /* Espacement entre les cartes */
+  max-width: 1200px; /* Largeur maximale du conteneur */
+  margin: 0 auto; /* Centrage du conteneur */
 }
 
 /* Style de la carte */
 .solution-card {
-  padding: 2rem;
-  text-align: center;
-  background: transparent;
+  padding: 2rem; /* Espacement interne de la carte */
+  text-align: center; /* Texte centré dans la carte */
+  background: transparent; /* Fond transparent */
 }
 
+/* Style du titre de la carte */
 .solution-card h2 {
-  color: #213b48;
-  margin-top: 10px;
-  font-size: 20px;
-
+  color: #9EC3CE; /* Couleur du texte */
+  margin-top: 10px; /* Marge au-dessus du titre */
+  font-size: 20px; /* Taille du titre */
 }
 
+/* Style du texte dans la carte */
 .solution-card p {
-  color: whitesmoke;
-  margin-top: 10px;
-  font-size: 15px;
+  color: whitesmoke; /* Couleur du texte */
+  margin-top: 10px; /* Marge au-dessus du texte */
+  font-size: 15px; /* Taille du texte */
 }
 
-/* Style de l'icone */
+/* Style de l'icône */
 .solution-icon {
-  background: whitesmoke;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #FAF7EA; /* Fond de l'icône */
+  display: flex; /* Utilisation de Flexbox pour centrer l'icône */
+  align-items: center; /* Centrage vertical de l'icône */
+  justify-content: center; /* Centrage horizontal de l'icône */
   width: 80px;  /* Taille du cercle */
-  height: 80px;
-  border-radius: 10%; /* Rend le conteneur circulaire */
-  overflow: hidden;
-  margin: 0 auto; /* Centre horizontalement */
-  transition: transform 0.3s, box-shadow 0.3s; /* Transition douce pour l'effet */
+  height: 80px; /* Taille du cercle */
+  border-radius: 10%; /* Coins légèrement arrondis */
+  overflow: hidden; /* Cacher les parties dépassant du cercle */
+  margin: 0 auto; /* Centre l'icône horizontalement */
+  transition: transform 0.3s, box-shadow 0.3s; /* Effet de transition */
 }
 
+/* Style du logo dans l'icône */
 .logo-solution {
-  width: 70%;  /* Ajuste la taille de l'image */
-  height: 70%;
+  width: 70%;  /* Ajuste la taille de l'image à 70% du conteneur */
+  height: 70%; /* Ajuste la hauteur de l'image à 70% du conteneur */
   object-fit: contain; /* Assure que l'image ne soit pas déformée */
 }
 
-
-/* Effet au survol pour l'icon */
+/* Effet au survol pour l'icône */
 .solution-icon:hover {
-  transform: scale(1.1); /* Agrandissement léger au survol */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au survol */
+  transform: scale(1.1); /* Légère agrandissement au survol */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Ombre portée plus marquée */
 }
 
 /* Responsive */
@@ -445,89 +513,101 @@ body {
 /* SECTION CARACTERISTIQUES                                              */
 /*************************************************************************/
 
-.caract{
-  background-color: rgb(22, 24, 26);
-  color: white;
-  text-align: center;
-  width: 100%; 
-  padding: 10px 0; 
-  z-index: 2;
-  position: relative; 
-  bottom: 0;
-
+/* Style général de la section "caract" */
+.caract {
+  background-color:  #123d55bf; /* Fond semi-transparent avec un léger flou */
+  backdrop-filter: blur(5px); /* Applique un flou d'arrière-plan */
+  margin: 25px; /* Marges extérieures */
+  color: whitesmoke; /* Texte de couleur blanche */
+  text-align: center; /* Centrage du texte */
+  width: auto; /* La largeur s'adapte à son contenu */
+  padding: 10px 0; /* Espacement vertical */
+  z-index: 2; /* Définit l'ordre d'empilement (par rapport aux autres éléments) */
+  position: relative; /* Permet de positionner l'élément par rapport à son parent */
+  bottom: 0; /* Positionne l'élément au bas de son conteneur */
+  border-radius: 5px;
 }
-/* Conteneur des cartes */
+
+/* Conteneur des cartes de caractéristiques */
 .caract-grid {
-  margin-top: 40px;
+  margin-top: 40px; /* Espace au-dessus du conteneur */
   display: flex; /* Utilisation de flexbox pour l'alignement */
   justify-content: space-between; /* Espace égal entre les cartes */
-  padding: 0 80px; /* Espacement sur les côtés si nécessaire */
-  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  padding: 0 80px; /* Ajout de padding sur les côtés */
+  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  
 }
 
+/* Conteneur des cartes avec un alignement centré */
 .caract-grid-2 {
-  margin-top: 40px;
-  display: flex; /* Utilisation de flexbox pour l'alignement */
-  justify-content: center; /* Centrer les boîtes horizontalement */
-  gap: 100px; /* Espacement entre les cartes */
-  padding: 0 20px; /* Espacement sur les côtés */
-  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  margin-top: 40px; /* Espace au-dessus du conteneur */
+  display: flex; /* Flexbox pour l'alignement */
+  justify-content: center; /* Centre les cartes horizontalement */
+  gap: 100px; /* Espace entre les cartes */
+  padding: 0 20px; /* Ajout de padding sur les côtés */
+  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
 }
 
-/* Styles des cartes */
+/* Style des cartes dans la section */
 .caract-card {
-  width: 25vw; /* Un quart de la page */
+  width: 25vw; /* Largeur relative à la fenêtre, équivalente à 25% de la largeur de la page */
   min-width: 250px; /* Largeur minimale pour éviter que la carte soit trop petite */
   max-width: 300px; /* Largeur maximale pour contrôler la taille des cartes */
-  background: radial-gradient(#012f51, #155C8F);
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  height: 350px; /* Hauteur fixe pour garantir la même taille pour toutes les cartes */
+  background: radial-gradient(circle, #9EC3CE, rgba(203, 218, 223, 0.6)); /* Dégradé avec une transition plus douce */
+  border-radius: 15px; /* Coins arrondis */
+  padding: 20px; /* Espacement interne */
+  text-align: center; /* Texte centré à l'intérieur de la carte */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Ombre portée pour donner du relief */
+  color: whitesmoke; /* Texte en blanc */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet de transition pour l'agrandissement et l'ombre */
+  margin-bottom: 30px; /* Espace sous chaque carte */
 }
 
+/* Effet au survol de la carte */
 .caract-card:hover {
-  transform: scale(1.05); /* Zoom léger sur la carte */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Augmente l'ombre lors du survol */
+  transform: scale(1.05); /* Agrandissement léger de la carte */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Ombre plus marquée au survol */
 }
 
+
+/* Style des titres des cartes */
 .caract-card h2 {
-  color: #537281;
-  margin-top: 10px;
-  font-size: 20px;
+  color: #123D55; /* Texte en blanc */
+  margin-top: 10px; /* Espace au-dessus du titre */
+  font-size: 20px; /* Taille du texte */
+  margin-bottom: 20px;
 }
 
+/* Style du texte dans les cartes */
 .caract-card p {
-  color: whitesmoke;
-  font-size: 14px;
-  margin-top: 10px;
+  color: #123D55; /* Texte en blanc */
+  font-size: 14px; /* Taille du texte */
+  margin-top: 10px; /* Espace au-dessus du texte */
 }
 
-/* Conteneur de l'icône */
+/* Conteneur de l'icône dans la carte */
 .caract-icon {
-  background: whitesmoke;
-  display: flex; /* Permet de centrer l'image */
-  align-items: center; /* Centre verticalement */
-  justify-content: center; /* Centre horizontalement */
-  width: 65px;
-  height: 65px;
-  border-radius: 50%; /* Rend l'élément circulaire */
-  overflow: hidden; /* Cache les coins pour s'assurer que l'image reste bien dans le rond */
-  margin: 0 auto
+  background: #FAF7EA; /* Fond blanc */
+  display: flex; /* Flexbox pour centrer l'icône */
+  align-items: center; /* Centre l'icône verticalement */
+  justify-content: center; /* Centre l'icône horizontalement */
+  width: 65px; /* Taille de l'icône */
+  height: 65px; /* Taille de l'icône */
+  border-radius: 50%; /* Rend l'icône circulaire */
+  overflow: hidden; /* Cache tout débordement */
+  margin: 0 auto; /* Centre l'icône horizontalement */
 }
 
-/* Image */
+/* Style de l'image dans l'icône */
 .logo-carac {
-  justify-items: center;
-  width: 60%; /* Remplit son conteneur */
-  height: 60%; /* Remplit son conteneur */
-  object-fit: cover; /* Permet de remplir sans déformer */
+  justify-items: center; /* Centre l'image dans son conteneur */
+  width: 60%; /* L'image occupe 60% de la taille de son conteneur */
+  height: 60%; /* L'image occupe 60% de la taille de son conteneur */
+  object-fit: cover; /* Remplissage sans déformation de l'image */
 }
 
-
-
+ 
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -571,68 +651,79 @@ body {
 /*************************************************************************/
 /* SECTION CERTIFICATIONS                                                */
 /*************************************************************************/
-
+/* Style général de la section "certif" */
 .certif {
-  background-color: rgb(22, 24, 26);
-  text-align: center;
-  width: 100%; 
-  padding: 10px 0; 
-  z-index: 2;
-  position: relative; 
-  bottom: 0;
+  background-color: #123d55bf; /* Fond semi-transparent avec un léger flou */
+  backdrop-filter: blur(5px); /* Applique un flou d'arrière-plan */
+  text-align: center; /* Centrage du texte */
+  width: auto; /* La largeur s'adapte à son contenu */
+  padding: 10px 0; /* Espacement vertical */
+  z-index: 2; /* Définit l'ordre d'empilement (par rapport aux autres éléments) */
+  position: relative; /* Permet de positionner l'élément par rapport à son parent */
+  bottom: 0; /* Positionne l'élément au bas de son conteneur */
+  margin: 25px; /* Marges extérieures */
+  border-radius: 5px;
 }
 
+/* Grid pour organiser les cartes de certifications */
 .certif-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px; 
-  max-width: 1200px;
-  margin: 0 auto;
+  display: grid; /* Utilisation de grid pour organiser les éléments */
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales pour les cartes */
+  gap: 32px; /* Espacement entre les cartes */
+  max-width: 1200px; /* Largeur maximale */
+  margin: 0 auto; /* Centrage du contenu */
 }
 
+/* Style du titre des cartes de certification */
 .certif-card h2 {
-  color: #213b48;
-  margin-bottom: 35px; 
-  font-size: 28px; 
+  color: #9EC3CE; /* Couleur bleue du titre */
+  margin-bottom: 35px; /* Espace sous le titre */
+  font-size: 28px; /* Taille de la police du titre */
 }
 
+/* Conteneur des éléments dans la section certifications */
 .certif-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px; 
-  justify-content: center;
+  display: flex; /* Flexbox pour l'alignement */
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante si nécessaire */
+  gap: 12px; /* Espacement entre les éléments */
+  justify-content: center; /* Centre les éléments horizontalement */
+  margin-bottom: 20px;
 }
 
 .certif-items span {
   margin-top: 8px;
-  background: #071f35;
+  background: linear-gradient(45deg, #acd6e5b0, #155C8F); /* Dégradé du bleu clair translucide au bleu plus foncé */
   color: whitesmoke;
-  padding: 6px 16px; 
-  border-radius: 60px; /* angles arrondis */
-  font-weight: 500; /* épaisseur texte */
+  padding: 10px 28px;
+  border-radius: 50px; /* Bords arrondis plus marqués */
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombre douce pour créer un effet de fondu */
+  opacity: 0.9; /* Légère transparence pour un effet plus doux */
 }
 
-.logo-certif {
-  max-width: 150px;
-  height: auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.certif-items span:hover {
+  background: linear-gradient(45deg, #acd6e5b0, #155C8F); /* Maintien du dégradé */
+  transform: scale(1.05); /* Augmentation de la taille au survol */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* Ombre douce et agrandie pour l'effet survolé */
+  opacity: 1; /* Réduit la transparence au survol pour plus d'impact */
 }
 
 
-/* Responsive */
-@media (max-width: 768px) {
-  .certifi-grid {
-    grid-template-columns: 1fr;
-  }
+/* Style du logo des certifications */
+.certif-logo {
+  max-width: 150px; /* Largeur maximale du logo */
+  height: auto; /* Laisser la hauteur s'ajuster automatiquement */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet de transition pour l'agrandissement et l'ombre */
+  filter: invert(1); /* Inverse les couleurs du logo (utile pour un logo sombre sur fond clair) */
+  margin-bottom: 20px;
+}
 
-
-  .certif-card {
-    padding: 24px; /* 1.5rem = 24px */
-  }
-
-  .certif-items span {
-    font-size: 13px; /* 0.8rem = 13px */
-  }
+/* Effet au survol du logo de certification */
+.certif-logo:hover {
+  transform: scale(1.1); /* Agrandissement léger du logo au survol */
 }
 
 /*************************************************************************/
@@ -655,223 +746,160 @@ body {
 /* SECTION PARTENARIAT                                                   */
 /*************************************************************************/
 
-
 .Partenariat {
-  background-color: rgb(252, 229, 210);
-  text-align: center;
-  padding: 5px 0px;
-  color: black;
-  height: auto;
-  position: relative;
-  z-index: 2;
-}
-
-.Partenariat h1 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  color: #333;
-}
-
-.Partenariat h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.industrial, .financial {
-  margin: 50px 0;
-}
-
-.logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 150px;
-}
-
-.logo {
-  max-width: 150px;
-  height: auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.1);
-}
-
-a {
-  display: inline-block;
-  text-decoration: none;
-}
-
-
-/*************************************************************************/
-/* SECTION PARTENARIAT                                                   */
-/*************************************************************************/
-
-
-.Partenariat {
-  padding: 4%;
-  background-color: #e9f6ff;
-  text-align: center;
-  color: #155C8F;
-  height: auto;
-  position: relative;
-  z-index: 3;
-  border-bottom: 10px solid transparent;
+  width: auto; /* La largeur s'adapte à son contenu */
+  padding: 10px 0; /* Espacement vertical */
+  background-color:  rgba(189, 189, 189, 0.4); /* Fond légèrement transparent pour la section */
+  backdrop-filter: blur(40px); /* Applique un flou d'arrière-plan */
+  text-align: center; /* Centre le texte à l'intérieur de la section */
+  margin: 20px; /* Marge autour de la section */
+  color: whitesmoke; /* Couleur du texte en blanc cassé */
+  height: auto; /* Hauteur automatique selon le contenu */
+  position: relative; /* Positionnement relatif pour le contrôle z-index */
+  z-index: 2; /* Met la section au-dessus d’autres éléments avec un z-index inférieur */
+  border-bottom: 10px solid transparent; /* Bordure inférieure transparente */
+  border-radius: 80px; /* Arrondi des coins */
   /* Garder la bordure transparente pour laisser de la place */
-}
-
-.Partenariat::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  /* Positionner juste en dessous de la bordure */
-  left: 0;
-  width: 100%;
-  height: 10px;
-  /* Taille de la "bordure" dégradée */
-  background: linear-gradient(to bottom, rgba(233, 246, 255, 1), rgba(233, 246, 255, 0.99), rgba(233, 246, 255, 0.9), rgba(233, 246, 255, 0));
-  /* Dégradé plus prononcé */
-}
-
-
-.Partenariat h2 {
-  margin-bottom: 20px;
-  color: #155C8F;
 }
 
 .industrial,
 .financial {
-  margin: 30px 0;
+  margin: 30px 0; /* Marge de 30px en haut et en bas pour ces éléments */
+  color: #155C8F; /* Couleur bleue du titre */
+  margin-bottom: 35px; /* Espace sous le titre */
+  font-size: 20px; /* Taille de la police du titre */
 }
 
 .logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 80px;
+  display: flex; /* Utilisation de Flexbox pour organiser les logos */
+  justify-content: center; /* Centre les logos horizontalement */
+  align-items: center; /* Centre les logos verticalement */
+  flex-wrap: wrap; /* Permet aux logos de passer à la ligne suivante si l'espace est insuffisant */
+  gap: 20px; /* Espace de 20px entre les logos */
+  margin-top: 20px;
 }
 
 .logo {
-  max-width: 200px;
-  max-height: 200px;
-  transition: transform 0.5s ease;
-  opacity: 0;
+  flex-basis: calc(25% - 20px); /* Chaque logo prend 25% de la largeur moins l'espace entre eux */
+  max-width: 200px; /* Largeur maximale de chaque logo */
+  max-height: 200px; /* Hauteur maximale de chaque logo */
+  transition: transform 0.5s ease; /* Transition douce pour l'effet de transformation */
+  opacity: 0; /* Opacité initiale de 0, peut être modifié avec un effet JavaScript ou au survol */
+  margin-top: 20px;
 }
 
 .logo2 {
-  max-width: 250px;
-  max-height: 200px;
-  transition: transform 0.5s ease;
-  opacity: 0;
+  flex-basis: calc(25% - 20px); /* Même calcul pour .logo2 */
+  max-width: 250px; /* Largeur maximale de .logo2 */
+  max-height: 200px; /* Hauteur maximale de .logo2 */
+  transition: transform 0.5s ease; /* Transition douce pour l'effet de transformation */
+  opacity: 0; /* Opacité initiale de 0, peut être modifié avec un effet JavaScript ou au survol */
 }
 
-
 .logo:hover {
-  transform: scale(1.1) !important;
+  transform: scale(1.1) !important; /* Agrandit le logo lors du survol */
 }
 
 .logo2:hover {
-  transform: scale(1.1) !important;
+  transform: scale(1.1) !important; /* Agrandit également .logo2 lors du survol */
 }
 
 a {
-  display: inline-block;
-  text-decoration: none;
+  display: inline-block; /* Transforme le lien en bloc en ligne */
+  text-decoration: none; /* Retire la décoration du texte par défaut (souligné) */
 }
 
 /*************************************************************************/
 /* CONTACT SECTION                                                       */
 /*************************************************************************/
 
-/* Contact page container */
-.Contact {
-  background-image:linear-gradient(to top, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 5%, transparent 100%),url("assets/bc-contact.jpg") ;
-  background-position: center;
-  padding: 50px 20px;
-  color: #fff;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  min-height: 90vh;
-  z-index: 2 ;
-  margin-top: -30px;
+/* Conteneur de la page de contact */
+.contact-page {
+  background-image: linear-gradient(to top,#9EC3CE 1%, transparent 60%); /* Image de fond avec un dégradé */
+  background-position: center; /* Centre l'image de fond */
+  padding: 50px 20px; /* Ajoute du padding autour du conteneur */
+  color: whitesmoke; /* Couleur du texte en blanc */
+  display: flex; /* Utilise Flexbox pour le positionnement */
+  position: relative; /* Positionnement relatif pour contrôler le z-index */
+  justify-content: center; /* Centre le contenu horizontalement */
+  align-items: center; /* Centre le contenu verticalement */
+  min-height: 100vh; /* La section occupe toute la hauteur de l'écran */
+  z-index: 2; /* Niveau de superposition */
 }
 
-/* Contact form container */
+/* Conteneur du formulaire de contact */
 .contact-container {
-  background: #ffffff39;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  color: #333;
-  z-index: 2 ;
+  background: #ffffff39; /* Fond semi-transparent */
+  padding: 30px; /* Espacement intérieur du formulaire */
+  border-radius: 10px; /* Bords arrondis */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Ombre portée autour du formulaire */
+  width: 100%; /* Prend toute la largeur disponible */
+  max-width: 600px; /* Largeur maximale du formulaire */
+  text-align: center; /* Centre le texte dans le formulaire */
+  color: #333; /* Couleur du texte du formulaire */
+  z-index: 2; /* Niveau de superposition */
+  backdrop-filter: blur(10px); /* Flou de l'arrière-plan */
+
 }
 
-/* Title and description */
+/* Titre et description du formulaire */
 .contact-title {
-  font-size: 2.3rem;
-  margin-bottom: 15px;
-  color: #ffffff;
+  font-size: 2.3rem; /* Taille du titre */
+  margin-bottom: 15px; /* Espacement en bas du titre */
+  color: #155C8F; /* Couleur du titre */
 }
 
 .contact-description {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #f5f5f5;
+  font-size: 1.2rem; /* Taille du texte de la description */
+  margin-bottom: 25px; /* Espacement en bas de la description */
+  color: #155C8F; /* Couleur de la description */
 }
 
-.sucecss-message{
-  font-size: 1.rem;
-  padding-top: 10px;
-  color: #f5f5f5;
+.sucecss-message {
+  font-size: 1rem; /* Taille du texte pour le message de succès */
+  padding-top: 10px; /* Espacement au-dessus du message */
+  color: whitesmoke; /* Couleur du message de succès */
 }
 
-/* Input fields */
+/* Champs de saisie du formulaire */
 .contact-field,
 .contact-textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  transition: all 0.3s;
+  width: 100%; /* Champs de saisie prennent toute la largeur */
+  padding: 12px; /* Espacement intérieur des champs */
+  margin-bottom: 15px; /* Espacement entre les champs */
+  border-radius: 6px; /* Coins arrondis des champs */
+  border: 1px solid white; /* Bordure grise claire */
+  font-size: 1rem; /* Taille du texte dans les champs */
+  transition: all 0.3s; /* Transition fluide lors de la mise au point */
 }
 
+/* Effet de mise au focus sur les champs de saisie */
 .contact-field:focus,
 .contact-textarea:focus {
-  border-color: #216291;
-  outline: none;
+  outline: none; /* Retire l'outline par défaut */
 }
 
-/* Textarea specific styling */
+/* Style spécifique pour le champ de saisie de texte (textarea) */
 .contact-textarea {
-  resize: none;
+  resize: none; /* Empêche le redimensionnement du textarea */
 }
 
-/* Submit button */
+/* Bouton de soumission du formulaire */
 .contact-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #155C8F;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  width: 100%; /* Le bouton prend toute la largeur du formulaire */
+  padding: 12px; /* Espacement intérieur du bouton */
+  background-color: #e67331cd; /* Couleur de fond du bouton */
+  color: whitesmoke; /* Couleur du texte du bouton */
+  border: none; /* Retire la bordure du bouton */
+  border-radius: 6px; /* Coins arrondis du bouton */
+  font-size: 1rem; /* Taille du texte du bouton */
+  cursor: pointer; /* Change le curseur en pointeur au survol */
+  transition: background-color 0.3s; /* Transition fluide pour le changement de couleur de fond */
 }
 
+/* Effet de survol sur le bouton */
 .contact-button:hover {
-  background-color: #216291;
+  background-color: #e67331ef; /* Change la couleur de fond au survol */
 }
 
 /* Responsive design */
@@ -896,10 +924,10 @@ a {
 /*************************************************************************/
 
 .footer {
-  background-color: rgb(0, 0, 0);
+  background-color:#9EC3CE;
   color: white;
   text-align: center;
-  width: 100%;
+  width: auto;
   z-index: 2;
   position: relative;
   padding: 8px 8px;
@@ -920,15 +948,15 @@ a {
 
 .about-content {
   display: flex;
-  justify-content: space-around;
+  justify-content:space-around;
   max-width: max-content;
-  margin: 0 auto;
+  margin: 0 22rem;
   padding: 10px 0;
-
+  
 }
 
 .column {
-  width: 48%;
+  width: 45%;
   text-align: left;
   padding: 10px;
 }
@@ -936,8 +964,6 @@ a {
 .column h2 {
   margin-bottom: 10px;
 }
-
-
 
 /*************************************************************************/
 /* SECTION LOGIN                                                         */
@@ -971,7 +997,6 @@ a {
 /*************************************************************************/
 
 .dashboard-page {
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* 🔹 S'assure que le footer est en bas */
@@ -1068,5 +1093,3 @@ a {
   height: 100vh;  /* Toute la hauteur de l'écran */
   width: 100vw;   /* Largeur complète */
 }
-
-
