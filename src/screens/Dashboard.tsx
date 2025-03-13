@@ -86,6 +86,7 @@ function Dashboard() {
             <div className="dashboard-content">
                 <h1>Welcome, {user?.signInDetails?.loginId?.split("@")[0].split(".")[0] || "Guest"} 👋</h1>
                 <p>This is your secure area</p>
+                <p>oahdzed</p>
 
                 {/* Carte affichant les trackers */}
                 <Map />
