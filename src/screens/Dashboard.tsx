@@ -110,8 +110,6 @@ function Dashboard() {
                 <Map />
 
                 {accessToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
-                <h2>Token Cognito :</h2>
-                <p style={{ wordBreak: "break-all" }}>{accessToken}</p>
 
                 {/* Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
