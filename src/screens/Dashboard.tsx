@@ -55,9 +55,10 @@ function Dashboard() {
                 {
                     method: "GET",
                     headers: {
-                        "Authorization": `${IdToken}`,
+                        "Authorization": `Bearer ${IdToken}`,
                         "Content-Type": "application/json"
-                    }
+                    },
+                    credentials: 'include'
                 }
             );
 
