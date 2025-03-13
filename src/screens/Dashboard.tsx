@@ -1,7 +1,7 @@
 import '../App.css';
 import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { fetchAuthSession } from 'aws-amplify/auth'; 
+import { fetchAuthSession } from 'aws-amplify/auth';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
@@ -23,7 +23,7 @@ function Dashboard() {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const session = await fetchAuthSession(); 
+                const session = await fetchAuthSession();
                 const token = session.tokens?.idToken?.toString();  // Récupération du IdToken
 
                 if (token) {
@@ -55,7 +55,7 @@ function Dashboard() {
                 {
                     method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${IdToken}`,
+                        "Authorization": `${IdToken}`,
                         "Content-Type": "application/json"
                     }
                 }
@@ -91,7 +91,16 @@ function Dashboard() {
                 {/* Carte affichant les trackers */}
                 <Map />
 
-                {IdToken ? <p>Token récupéré !</p> : <p>Chargement du token...</p>}
+                {IdToken ? (
+                    <div>
+                        <p>Token récupéré !</p>
+                        <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+                            {IdToken}
+                        </pre>
+                    </div>
+                ) : (
+                    <p>Chargement du token...</p>
+                )}
 
                 {/* Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
