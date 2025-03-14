@@ -32,7 +32,7 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     const map = new maplibregl.Map({
       container: mapContainerRef.current!,
       style: styleUrl,
-      center: [2.3522, 48.8566], // Paris par défaut
+      center: [2.3522, 48.8566], // Position par défaut (Paris)
       zoom: 5,
     });
 
@@ -42,6 +42,13 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     return () => map.remove();
   }, []);
 
+  // 🔹 Sélectionner automatiquement le premier tracker
+  useEffect(() => {
+    if (trackers.length > 0 && selectedTrackers.length === 0) {
+      setSelectedTrackers([trackers[0].tracker_id]); // Sélectionne le premier tracker
+    }
+  }, [trackers]);
+
   useEffect(() => {
     if (!mapRef.current) return;
     const map = mapRef.current;
@@ -49,10 +56,12 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     // Supprime les anciens marqueurs avant d'en ajouter de nouveaux
     document.querySelectorAll(".tracker-marker").forEach(marker => marker.remove());
 
-    // Filtre les trackers sélectionnés et les ajoute sur la carte
-    trackers
-      .filter(tracker => selectedTrackers.includes(tracker.tracker_id))
-      .forEach(tracker => {
+    const selected = trackers.filter(tracker => selectedTrackers.includes(tracker.tracker_id));
+
+    if (selected.length > 0) {
+      const bounds = new maplibregl.LngLatBounds();
+      
+      selected.forEach(tracker => {
         const marker = new maplibregl.Marker({ color: "red" })
           .setLngLat([tracker.longitude, tracker.latitude])
           .setPopup(
@@ -65,10 +74,20 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
           .addTo(map);
 
         marker.getElement().classList.add("tracker-marker");
+        bounds.extend([tracker.longitude, tracker.latitude]); // Ajoute aux limites
       });
-  }, [trackers, selectedTrackers]); // Mettre à jour uniquement si trackers ou sélection changent
 
-  // Gérer la sélection des trackers
+      // 🔹 Ajuste la carte pour voir tous les trackers sélectionnés
+      if (selected.length === 1) {
+        map.setCenter([selected[0].longitude, selected[0].latitude]); // Centre sur un seul tracker
+        map.setZoom(10); // Zoom par défaut sur un tracker
+      } else {
+        map.fitBounds(bounds, { padding: 50 }); // Ajuste la carte pour voir tous les trackers
+      }
+    }
+  }, [trackers, selectedTrackers]);
+
+  // 🔹 Gérer la sélection des trackers
   const handleTrackerSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     setSelectedTrackers(prev =>
@@ -98,7 +117,6 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
 
       {/* 🔹 La carte */}
       <div ref={mapContainerRef} className="map" />
-
     </div>
   );
 };
