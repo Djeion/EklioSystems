@@ -245,12 +245,11 @@ body {
   text-align: center; /* Centrage du texte */
   position: relative; /* Permet d'utiliser des éléments positionnés */
   width: auto; /* Largeur s'adapte au contenu */
-  height: 50vh; /* Hauteur de la section à 50% de la hauteur de la fenêtre */
+  height: auto ; /* Hauteur de la section à 50% de la hauteur de la fenêtre */
   display: flex; /* Flexbox pour organiser les éléments */
   flex-direction: column; /* Organisation en colonne */
   align-items: center; /* Centrage horizontal */
   justify-content: center; /* Centrage vertical */
-
   background-color: rgba(203, 218, 223, 0.4); /* Arrière-plan gris semi-transparent */
   background-position: center; /* Centrage de l'image de fond */
   background-size: cover; /* Image couvre toute la section */
@@ -338,6 +337,27 @@ body {
   background-color: #9EC3CE; /* Changement de couleur au survol */
 }
 
+/* RESPONSIVE : AJUSTEMENT SUR MOBILE */
+@media (max-width: 768px) {
+.geoloc {
+  margin: 15px;
+}
+
+  .geoloc h1 {
+    font-size: 30px;
+  }
+
+  .technologies-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .technologies-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 colonne sur très petit écran */
+  }
+}
+
 
 /*************************************************************************/
 /* SECTION TRACABILITE                                                   */
@@ -405,13 +425,33 @@ body {
 
 
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
+  .trace-grid {
+    grid-template-columns: 1fr; /* Passe en une seule colonne */
+    text-align: center; /* Centre le texte */
+    gap: 2rem; /* Ajuste l'espacement */
+  }
+
   .section-title {
       font-size: 2rem;
   }
   
   .feature-item {
       font-size: 1rem;
+  }
+
+  .trace-card {
+    width: 100%; /* S'étend pour occuper tout l'espace */
+  }
+
+  .trace-image {
+    width: 100%; /* Assure que l'image reste bien visible */
+    display: flex;
+    justify-content: center; /* Centre l'image */
+  }
+
+  .trace-image img {
+    max-width: 80%; /* Évite que l'image touche les bords */
   }
 }
 
@@ -525,31 +565,21 @@ body {
 }
 
 /* Conteneur des cartes de caractéristiques */
-.caract-grid {
-  margin-top: 40px; /* Espace au-dessus du conteneur */
-  display: flex; /* Utilisation de flexbox pour l'alignement */
-  justify-content: space-between; /* Espace égal entre les cartes */
-  padding: 0 80px; /* Ajout de padding sur les côtés */
-  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-  
-}
-
-/* Conteneur des cartes avec un alignement centré */
-.caract-grid-2 {
-  margin-top: 40px; /* Espace au-dessus du conteneur */
-  display: flex; /* Flexbox pour l'alignement */
-  justify-content: center; /* Centre les cartes horizontalement */
-  gap: 100px; /* Espace entre les cartes */
-  padding: 0 20px; /* Ajout de padding sur les côtés */
-  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+.caract-grid, .caract-grid-2 {
+  display: flex;
+  justify-content: center; /* Centre les cartes */
+  align-items: stretch; /* Fait en sorte que toutes les cartes aient la même hauteur */
+  flex-wrap: wrap; /* Permet aux cartes de passer en colonne si elles se touchent */
+  gap: 30px; /* Espace entre les cartes */
+  width: 100%; /* Largeur pleine */
 }
 
 /* Style des cartes dans la section */
 .caract-card {
-  width: 25vw; /* Largeur relative à la fenêtre, équivalente à 25% de la largeur de la page */
-  min-width: 250px; /* Largeur minimale pour éviter que la carte soit trop petite */
-  max-width: 300px; /* Largeur maximale pour contrôler la taille des cartes */
-  height: 350px; /* Hauteur fixe pour garantir la même taille pour toutes les cartes */
+  flex: 1; /* Fait en sorte que toutes les cartes prennent la même largeur */
+  min-width: 320px; 
+  max-width: 25%; /* Largeur maximale pour contrôler la taille des cartes */
+  height: 370px; /* Hauteur fixe pour garantir la même taille pour toutes les cartes */
   background: radial-gradient(circle, #9EC3CE, rgba(203, 218, 223, 0.6)); /* Dégradé avec une transition plus douce */
   border-radius: 15px; /* Coins arrondis */
   padding: 20px; /* Espacement interne */
@@ -577,10 +607,14 @@ body {
 
 /* Style du texte dans les cartes */
 .caract-card p {
-  color: #123D55; /* Texte en blanc */
-  font-size: 14px; /* Taille du texte */
-  margin-top: 10px; /* Espace au-dessus du texte */
+  color: #123D55;
+  font-size: 14px;
+  margin-top: 10px;
+  word-wrap: break-word; /* Permet de couper les mots trop longs */
+  overflow-wrap: break-word; /* Compatibilité avec tous les navigateurs */
+  white-space: normal; /* Assure que le texte peut aller à la ligne */
 }
+
 
 /* Conteneur de l'icône dans la carte */
 .caract-icon {
@@ -608,16 +642,22 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
   /* Conteneur des cartes */
-  .caract-grid {
-    flex-direction: column; /* Aligne les cartes verticalement */
-    padding: 0 20px; /* Réduit l'espacement latéral sur les petits écrans */
-    gap: 40px; /* Ajoute un espacement uniforme entre toutes les cartes */
-  }
-
-  .caract-grid-2 {
-    flex-direction: column; /* Aligne les cartes verticalement */
+  .caract-grid, .caract-grid-2 {
+    display: flex;
+    flex-direction: column; /* Met les cartes en colonne */
+    align-items: center; /* Centre toutes les cartes horizontalement */
+    justify-content: center; /* Centre les cartes verticalement si besoin */
     gap: 40px; /* Espacement uniforme entre les cartes */
+    padding: 0 20px; /* Réduit l’espacement latéral */
+    width: 100%; /* Assure que le conteneur prend toute la largeur */
+    max-width: 1200px; /* Empêche un étirement excessif des cartes */
+    margin: 0 auto; /* Centre le conteneur */
   }
+  
+  .caract-grid {
+    margin-bottom: 40px; /* Ajoute un espace de 40px sous la première grid */
+  }
+  
 
   /* Styles des cartes */
   .caract-card {
@@ -665,7 +705,7 @@ body {
 .certif-grid {
   display: grid; /* Utilisation de grid pour organiser les éléments */
   grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales pour les cartes */
-  gap: 32px; /* Espacement entre les cartes */
+  gap: 2% ; /* Espacement entre les cartes */
   max-width: 1200px; /* Largeur maximale */
   margin: 0 auto; /* Centrage du contenu */
 }
@@ -722,20 +762,29 @@ body {
   transform: scale(1.1); /* Agrandissement léger du logo au survol */
 }
 
-/*************************************************************************/
-/* SECTION ABOUT US                                                      */
-/*************************************************************************/
+@media (max-width: 768px) {
+  .certif-grid {
+    grid-template-columns: 1fr; /* Passe à une seule colonne */
+    gap: 20px; /* Augmente l’espacement */
+  }
 
-.about-us{
+  .certif {
+    padding: 30px 10px; /* Ajuste le padding global */
+    margin: 15px; /* Réduit les marges */
+  }
 
-  color: white;
-  text-align: center;
-  width: 100%; 
-  padding: 10px 0; 
-  z-index: 2;
-  position: relative; 
-  bottom: 0;
+  .certif-card h2 {
+    font-size: 22px; /* Réduction de la taille du titre */
+  }
 
+  .certif-items span {
+    padding: 6px 16px; /* Réduction du padding des tags */
+    font-size: 12px; /* Texte plus petit */
+  }
+
+  .certif-logo {
+    max-width: 100px; /* Réduction de la taille du logo */
+  }
 }
 
 /*************************************************************************/
@@ -771,7 +820,7 @@ body {
   justify-content: center; /* Centre les logos horizontalement */
   align-items: center; /* Centre les logos verticalement */
   flex-wrap: wrap; /* Permet aux logos de passer à la ligne suivante si l'espace est insuffisant */
-  gap: 20px; /* Espace de 20px entre les logos */
+  gap: 5% ; /* Espace de 20px entre les logos */
   margin-top: 20px;
 }
 
@@ -805,6 +854,35 @@ a {
   text-decoration: none; /* Retire la décoration du texte par défaut (souligné) */
 }
 
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .logo, .logo2 {
+    max-width: 150px; /* Réduction de la taille des logos */
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo, .logo2 {
+    max-width: 120px; /* Réduction supplémentaire sur mobile */
+    max-height: 120px;
+  }
+
+  .logos {
+    gap: 8%; /* Ajuste l'espacement des logos */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo, .logo2 {
+    max-width: 90px; /* Réduction encore plus forte sur petits écrans */
+    max-height: 90px;
+  }
+
+  .logos {
+    gap: 5%; /* Évite un trop grand espace entre les logos */
+  }
+}
 /*************************************************************************/
 /* CONTACT SECTION                                                       */
 /*************************************************************************/
@@ -915,6 +993,11 @@ a {
 
 
 
+
+
+
+
+
 /*************************************************************************/
 /* SECTION FOOTER                                                        */
 /*************************************************************************/
@@ -942,9 +1025,20 @@ a {
   text-decoration: underline;
 }
 
+.about-us{
+
+  color: white;
+  text-align: center;
+  width: 100%; 
+  padding: 10px 0; 
+  z-index: 2;
+  position: relative; 
+  bottom: 0;
+
+}
+
 .about-content {
   display: flex;
-  justify-content:space-around;
   max-width: max-content;
   margin: 0 22rem;
   padding: 10px 0;
@@ -952,7 +1046,7 @@ a {
 }
 
 .column {
-  width: 45%;
+  width: 50%;
   text-align: left;
   padding: 10px;
 }
