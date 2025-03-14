@@ -1,75 +1,53 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-const Map: React.FC = () => {
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const [selectedTrackers, setSelectedTrackers] = useState<string[]>([]);
+interface Tracker {
+    tracker_id: string;
+    latitude: number;
+    longitude: number;
+}
 
-  
-  // 🔹 Fake trackers (à remplacer plus tard par des vrais)
-  const trackers = [
-    { id: "tracker-1", name: "Tracker Alpha" },
-    { id: "tracker-2", name: "Tracker Beta" },
-    { id: "tracker-3", name: "Tracker Gamma" },
-  ];
+interface MapProps {
+    trackers: Tracker[];
+}
 
-  useEffect(() => {
-    const apiKey = import.meta.env.VITE_AMAZON_LOCATION_API_KEY;
-    const awsRegion = "eu-west-1";
-    const mapName = "dashboard-map";
+const Map: React.FC<MapProps> = ({ trackers }) => {
+    const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
-    if (!apiKey) {
-      console.error("Amazon Location Service API Key is missing!");
-      return;
-    }
+    useEffect(() => {
+        const apiKey = import.meta.env.VITE_AMAZON_LOCATION_API_KEY;
+        const awsRegion = "eu-west-1";
+        const mapName = "dashboard-map";
 
-    const styleUrl = `https://maps.geo.${awsRegion}.amazonaws.com/maps/v0/maps/${mapName}/style-descriptor?key=${apiKey}`;
+        if (!apiKey) {
+            console.error("Amazon Location Service API Key is missing!");
+            return;
+        }
 
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current!,
-      style: styleUrl,
-      center: [2.3522, 48.8566], // [Longitude, Latitude]
-      zoom: 10,
-    });
+        const styleUrl = `https://maps.geo.${awsRegion}.amazonaws.com/maps/v0/maps/${mapName}/style-descriptor?key=${apiKey}`;
 
-    map.addControl(new maplibregl.NavigationControl(), "top-right");
+        const map = new maplibregl.Map({
+            container: mapContainerRef.current!,
+            style: styleUrl,
+            center: [2.3522, 48.8566], // 🔹 Position par défaut (Paris)
+            zoom: 10,
+        });
 
-    return () => map.remove();
-  }, []);
+        map.addControl(new maplibregl.NavigationControl(), "top-right");
 
-  // 🔹 Gérer la sélection des trackers
-  const handleTrackerSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    setSelectedTrackers(prev =>
-      checked ? [...prev, value] : prev.filter(id => id !== value)
-    );
-  };
+        // 🔹 Ajouter les marqueurs pour chaque tracker
+        trackers.forEach((tracker) => {
+            new maplibregl.Marker()
+                .setLngLat([tracker.longitude, tracker.latitude])
+                .setPopup(new maplibregl.Popup().setHTML(`<b>Tracker ID:</b> ${tracker.tracker_id}`))
+                .addTo(map);
+        });
 
-  return (
-    <div className="map-container">
-      {/* 🔹 Menu déroulant des trackers */}
-      <details className="tracker-menu">
-        <summary>📍 Select your Tracker(s)</summary>
-        <div className="tracker-list">
-          {trackers.map(tracker => (
-            <label key={tracker.id}>
-              <input
-                type="checkbox"
-                value={tracker.id}
-                checked={selectedTrackers.includes(tracker.id)}
-                onChange={handleTrackerSelection}
-              />
-              {tracker.name}
-            </label>
-          ))}
-        </div>
-      </details>
+        return () => map.remove();
+    }, [trackers]); // 🔹 Mettre à jour les marqueurs quand `trackers` change
 
-      {/* 🔹 La carte */}
-      <div ref={mapContainerRef} className="map" />
-    </div>
-  );
+    return <div ref={mapContainerRef} className="map" />;
 };
 
 export default Map;

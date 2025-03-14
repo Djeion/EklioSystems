@@ -13,13 +13,10 @@ interface TrackerData {
 }
 
 function Dashboard() {
-
-
     const { user } = useAuthenticator((context) => [context.user]);
     const [IdToken, setIdToken] = useState<string | null>(null);
-    const [trackers] = useState<TrackerData[]>([]);
+    const [trackers, setTrackers] = useState<TrackerData[]>([]);
     const [rawData, setRawData] = useState("");
-
 
     useEffect(() => {
         const getToken = async () => {
@@ -29,7 +26,7 @@ function Dashboard() {
 
                 if (token) {
                     setIdToken(token);
-                    console.log("IdToken récupéré:", token); // Vérification du token
+                    console.log("IdToken récupéré:", token);
                 } else {
                     console.warn("Aucun IdToken trouvé !");
                 }
@@ -41,14 +38,13 @@ function Dashboard() {
         getToken();
     }, []);
 
-
     useEffect(() => {
         if (IdToken) {
             callLambda();
         }
     }, [IdToken]);
 
-    // Fonction d'appel du Lambda avec le token
+    // 🔹 Fonction d'appel du Lambda avec le token
     const callLambda = async () => {
         try {
             const response = await fetch(
@@ -58,7 +54,6 @@ function Dashboard() {
                     mode: 'cors',
                     headers: {
                         "Authorization": `Bearer ${IdToken}`,
-                        
                         "Content-Type": "application/json"
                     },
                     credentials: 'include'
@@ -66,32 +61,28 @@ function Dashboard() {
             );
     
             const data = await response.json();
-            console.log("Données reçues du Lambda:", data); // Affichage brut dans la console
+            console.log("Données reçues du Lambda:", data);
     
-            // Si tu veux afficher dans l'UI directement (par ex. dans un useState)
-            setRawData(JSON.stringify(data, null, 2)); // Pour bien formater l'affichage JSON
+            if (data.trackers) {
+                setTrackers(data.trackers); // 🔹 Stocker les trackers réels
+            }
+
+            setRawData(JSON.stringify(data, null, 2)); // 🔹 Affichage JSON
     
         } catch (error) {
             console.error("Erreur lors de l’appel du Lambda:", error);
         }
     };
-    
-
-
 
     return (
-
-
         <div className="dashboard-page">
-
-                <Header />
-
+            <Header />
             <div className="dashboard-content">
                 <h1>Welcome, {user?.signInDetails?.loginId?.split("@")[0].split(".")[0] || "Guest"} 👋</h1>
                 <p>This is your secure area</p>
 
-                {/* Carte affichant les trackers */}
-                <Map />
+                {/* 🔹 Carte affichant les trackers */}
+                <Map trackers={trackers} />
 
                 {IdToken ? (
                     <div>
@@ -104,11 +95,9 @@ function Dashboard() {
                     <p>Chargement du token...</p>
                 )}
 
-                {/* Liste des trackers récupérés */}
+                {/* 🔹 Liste des trackers récupérés */}
                 <h2>Your Trackers</h2>
-
                 <h2>Trackers reçus :</h2>
-
                 <pre>{rawData}</pre>
 
                 {trackers.length > 0 ? (
