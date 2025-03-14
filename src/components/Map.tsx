@@ -3,7 +3,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 interface Tracker {
-  tracker_id: string;
+  UUID: string;
   latitude: number;
   longitude: number;
 }
@@ -42,10 +42,10 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     return () => map.remove();
   }, []);
 
-  // 🔹 Sélectionner automatiquement le premier tracker
+  // 🔹 Sélectionner automatiquement le premier tracker avec UUID
   useEffect(() => {
     if (trackers.length > 0 && selectedTrackers.length === 0) {
-      setSelectedTrackers([trackers[0].tracker_id]); // Sélectionne le premier tracker
+      setSelectedTrackers([trackers[0].UUID]); // Sélectionne le premier tracker
     }
   }, [trackers]);
 
@@ -56,7 +56,7 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     // Supprime les anciens marqueurs avant d'en ajouter de nouveaux
     document.querySelectorAll(".tracker-marker").forEach(marker => marker.remove());
 
-    const selected = trackers.filter(tracker => selectedTrackers.includes(tracker.tracker_id));
+    const selected = trackers.filter(tracker => selectedTrackers.includes(tracker.UUID));
 
     if (selected.length > 0) {
       const bounds = new maplibregl.LngLatBounds();
@@ -66,7 +66,7 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
           .setLngLat([tracker.longitude, tracker.latitude])
           .setPopup(
             new maplibregl.Popup().setHTML(`
-              <strong>Tracker ID:</strong> ${tracker.tracker_id}<br>
+              <strong>UUID:</strong> ${tracker.UUID}<br>
               <strong>Latitude:</strong> ${tracker.latitude}<br>
               <strong>Longitude:</strong> ${tracker.longitude}
             `)
@@ -80,14 +80,14 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
       // 🔹 Ajuste la carte pour voir tous les trackers sélectionnés
       if (selected.length === 1) {
         map.setCenter([selected[0].longitude, selected[0].latitude]); // Centre sur un seul tracker
-        map.setZoom(10); // Zoom par défaut sur un tracker
+        map.setZoom(10);
       } else {
         map.fitBounds(bounds, { padding: 50 }); // Ajuste la carte pour voir tous les trackers
       }
     }
   }, [trackers, selectedTrackers]);
 
-  // 🔹 Gérer la sélection des trackers
+  // 🔹 Gérer la sélection des trackers avec UUID
   const handleTrackerSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     setSelectedTrackers(prev =>
@@ -99,17 +99,17 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     <div className="map-container">
       {/* 🔹 Menu déroulant pour sélectionner les trackers */}
       <details className="tracker-menu">
-        <summary>📍 Select your Tracker(s)</summary>
+        <summary>📍 Sélectionner vos Trackers</summary>
         <div className="tracker-list">
           {trackers.map(tracker => (
-            <label key={tracker.tracker_id}>
+            <label key={tracker.UUID}>
               <input
                 type="checkbox"
-                value={tracker.tracker_id}
-                checked={selectedTrackers.includes(tracker.tracker_id)}
+                value={tracker.UUID}
+                checked={selectedTrackers.includes(tracker.UUID)}
                 onChange={handleTrackerSelection}
               />
-              {tracker.tracker_id}
+              {tracker.UUID}
             </label>
           ))}
         </div>
