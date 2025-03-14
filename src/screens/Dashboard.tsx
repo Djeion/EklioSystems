@@ -54,6 +54,7 @@ function Dashboard() {
                 "https://sdodu45cej.execute-api.eu-west-1.amazonaws.com/dev",
                 {
                     method: "GET",
+                    mode: 'cors',
                     headers: {
                         "Authorization": `Bearer ${IdToken}`,
                         "Content-Type": "application/json"
