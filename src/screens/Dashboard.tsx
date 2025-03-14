@@ -21,7 +21,6 @@ interface TrackerData {
 function Dashboard() {
     const { user } = useAuthenticator((context) => [context.user]);
     const [IdToken, setIdToken] = useState<string | null>(null);
-    const [rawData, setRawData] = useState("");
     const [trackers, setTrackers] = useState<TrackerData[]>([]);
 
     useEffect(() => {
@@ -72,7 +71,6 @@ function Dashboard() {
                 setTrackers(data.trackers); // Stocker les trackers avec UUID
             }
 
-            setRawData(JSON.stringify(data, null, 2));
         } catch (error) {
             console.error("Erreur lors de l’appel du Lambda:", error);
         }
@@ -90,9 +88,6 @@ function Dashboard() {
 
                 {/* Carte affichant les trackers avec UUID */}
                 <Map trackers={trackers} />
-
-                <h2>Trackers reçus :</h2>
-                <pre>{rawData}</pre>
             </div>
         </div>
     );
