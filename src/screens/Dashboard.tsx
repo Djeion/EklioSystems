@@ -17,7 +17,9 @@ function Dashboard() {
 
     const { user } = useAuthenticator((context) => [context.user]);
     const [IdToken, setIdToken] = useState<string | null>(null);
-    const [trackers, setTrackers] = useState<TrackerData[]>([]);
+    const [trackers] = useState<TrackerData[]>([]);
+    const [rawData, setRawData] = useState("");
+
 
     useEffect(() => {
         const getToken = async () => {
@@ -61,19 +63,18 @@ function Dashboard() {
                     credentials: 'include'
                 }
             );
-
+    
             const data = await response.json();
-            console.log("Données reçues du Lambda:", data);
-
-            if (Array.isArray(data)) {
-                setTrackers(data); // Stocke les trackers si la réponse est un tableau
-            } else {
-                console.warn("Les données reçues ne sont pas un tableau:", data);
-            }
+            console.log("Données reçues du Lambda:", data); // Affichage brut dans la console
+    
+            // Si tu veux afficher dans l'UI directement (par ex. dans un useState)
+            setRawData(JSON.stringify(data, null, 2)); // Pour bien formater l'affichage JSON
+    
         } catch (error) {
             console.error("Erreur lors de l’appel du Lambda:", error);
         }
     };
+    
 
 
 
@@ -106,6 +107,9 @@ function Dashboard() {
                 <h2>Your Trackers</h2>
 
                 <h2>Trackers reçus :</h2>
+
+                <pre>{rawData}</pre>
+
                 {trackers.length > 0 ? (
                     <table>
                         <thead>
