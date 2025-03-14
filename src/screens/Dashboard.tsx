@@ -58,6 +58,7 @@ function Dashboard() {
                     mode: 'cors',
                     headers: {
                         "Authorization": `Bearer ${IdToken}`,
+                        
                         "Content-Type": "application/json"
                     },
                     credentials: 'include'
