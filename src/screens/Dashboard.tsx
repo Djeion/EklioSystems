@@ -17,7 +17,6 @@ function Dashboard() {
 
     const { user } = useAuthenticator((context) => [context.user]);
     const [IdToken, setIdToken] = useState<string | null>(null);
-    const [rawData, setRawData] = useState("");
     const [trackers, setTrackers] = useState<TrackerData[]>([]);
 
 
@@ -71,8 +70,6 @@ function Dashboard() {
         if (data.trackers) {
             setTrackers(data.trackers); // Stocker les trackers réels
         }
-
-        setRawData(JSON.stringify(data, null, 2)); // Affichage JSON
     } catch (error) {
         console.error("Erreur lors de l’appel du Lambda:", error);
     }
@@ -94,51 +91,7 @@ function Dashboard() {
                 <p>This is your secure area</p>
 
                 {/* Carte affichant les trackers */}
-                <Map />
-
-
-                {IdToken ? (
-                    <div>
-                        <p>Token récupéré !</p>
-                        <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
-                            {IdToken}
-                        </pre>
-                    </div>
-                ) : (
-                    <p>Chargement du token...</p>
-                )}
-
-                {/* Liste des trackers récupérés */}
-                <h2>Your Trackers</h2>
-
-                <h2>Trackers reçus :</h2>
-
-                <pre>{rawData}</pre>
-
-                {trackers.length > 0 ? (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tracker ID</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
-                                <th>User ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {trackers.map((tracker) => (
-                                <tr key={tracker.tracker_id}>
-                                    <td>{tracker.tracker_id}</td>
-                                    <td>{tracker.latitude}</td>
-                                    <td>{tracker.longitude}</td>
-                                    <td>{tracker.user_id}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>Aucun tracker disponible.</p>
-                )}
+                <Map trackers={trackers} />
             </div>
         </div>
     );

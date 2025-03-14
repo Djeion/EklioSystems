@@ -1148,6 +1148,9 @@ a {
 /*************************************************************************/
 
 .dashboard-page {
+  background: 
+  linear-gradient(to top, rgba(158, 195, 206, 1), rgba(158, 195, 206, 0) 30%), 
+  url("assets/background_new2.jpg"); /* Dégradé + image */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1167,22 +1170,19 @@ a {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: 
-  linear-gradient(to top, rgba(158, 195, 206, 1), rgba(158, 195, 206, 0) 30%), 
-  url("assets/background_new2.jpg"); /* Dégradé + image */
-  background-size: cover; 
-  background-repeat: no-repeat;
-  background-position: center;
   z-index: 1;
   
 }
 
+
+
 .map-container {
-  width: 80%;
+
+  margin-top: 3%;
+  width: 90%;
   height: 500px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  margin-top: 20px;
   z-index:3;
   display: flex;
   align-items: center;

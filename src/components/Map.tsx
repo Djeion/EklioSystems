@@ -2,17 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-const Map: React.FC = () => {
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const [selectedTrackers, setSelectedTrackers] = useState<string[]>([]);
+interface Tracker {
+  tracker_id: string;
+  latitude: number;
+  longitude: number;
+}
 
-  
-  // 🔹 Fake trackers (à remplacer plus tard par des vrais)
-  const trackers = [
-    { id: "tracker-1", name: "Tracker Alpha" },
-    { id: "tracker-2", name: "Tracker Beta" },
-    { id: "tracker-3", name: "Tracker Gamma" },
-  ];
+interface MapProps {
+  trackers: Tracker[];
+}
+
+const Map: React.FC<MapProps> = ({ trackers }) => {
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const [selectedTrackers, setSelectedTrackers] = useState<string[]>([]);
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_AMAZON_LOCATION_API_KEY;
@@ -29,16 +32,43 @@ const Map: React.FC = () => {
     const map = new maplibregl.Map({
       container: mapContainerRef.current!,
       style: styleUrl,
-      center: [2.3522, 48.8566], // [Longitude, Latitude]
-      zoom: 10,
+      center: [2.3522, 48.8566], // Paris par défaut
+      zoom: 5,
     });
 
     map.addControl(new maplibregl.NavigationControl(), "top-right");
+    mapRef.current = map;
 
     return () => map.remove();
   }, []);
 
-  // 🔹 Gérer la sélection des trackers
+  useEffect(() => {
+    if (!mapRef.current) return;
+    const map = mapRef.current;
+
+    // Supprime les anciens marqueurs avant d'en ajouter de nouveaux
+    document.querySelectorAll(".tracker-marker").forEach(marker => marker.remove());
+
+    // Filtre les trackers sélectionnés et les ajoute sur la carte
+    trackers
+      .filter(tracker => selectedTrackers.includes(tracker.tracker_id))
+      .forEach(tracker => {
+        const marker = new maplibregl.Marker({ color: "red" })
+          .setLngLat([tracker.longitude, tracker.latitude])
+          .setPopup(
+            new maplibregl.Popup().setHTML(`
+              <strong>Tracker ID:</strong> ${tracker.tracker_id}<br>
+              <strong>Latitude:</strong> ${tracker.latitude}<br>
+              <strong>Longitude:</strong> ${tracker.longitude}
+            `)
+          )
+          .addTo(map);
+
+        marker.getElement().classList.add("tracker-marker");
+      });
+  }, [trackers, selectedTrackers]); // Mettre à jour uniquement si trackers ou sélection changent
+
+  // Gérer la sélection des trackers
   const handleTrackerSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     setSelectedTrackers(prev =>
@@ -48,19 +78,19 @@ const Map: React.FC = () => {
 
   return (
     <div className="map-container">
-      {/* 🔹 Menu déroulant des trackers */}
+      {/* 🔹 Menu déroulant pour sélectionner les trackers */}
       <details className="tracker-menu">
-        <summary>📍 Select your Tracker(s)</summary>
+        <summary>📍 Sélectionner vos Trackers</summary>
         <div className="tracker-list">
           {trackers.map(tracker => (
-            <label key={tracker.id}>
+            <label key={tracker.tracker_id}>
               <input
                 type="checkbox"
-                value={tracker.id}
-                checked={selectedTrackers.includes(tracker.id)}
+                value={tracker.tracker_id}
+                checked={selectedTrackers.includes(tracker.tracker_id)}
                 onChange={handleTrackerSelection}
               />
-              {tracker.name}
+              {tracker.tracker_id}
             </label>
           ))}
         </div>
@@ -68,6 +98,7 @@ const Map: React.FC = () => {
 
       {/* 🔹 La carte */}
       <div ref={mapContainerRef} className="map" />
+
     </div>
   );
 };
