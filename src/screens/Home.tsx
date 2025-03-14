@@ -32,8 +32,6 @@ import icon_radio from '../assets/certification/icon-radio.png';
 import icon_secu from '../assets/certification/icon-securite.png';
 import icon_physique from '../assets/certification/icon-physique.png';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Contact from '../components/Contact';
 
 function Home() {
@@ -98,11 +96,6 @@ function Home() {
         return (
             <div>
                 <div className="spacer"></div>
-    
-                {/* Section Header */}
-                <div className="header">
-                    <Header />
-                </div>
                 
                 {/* Section ContentPrez */}
                 <div className="contentprez">
@@ -382,10 +375,6 @@ function Home() {
                     <Contact />
                 </div>
     
-                {/* Section Footer */}
-                <div className="footer">
-                    <Footer />
-                </div>
             </div>
         );
     

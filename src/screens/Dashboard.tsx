@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Map from '../components/Map';
 
 interface TrackerData {
@@ -87,7 +86,6 @@ function Dashboard() {
             <div className="dashboard-content">
                 <h1>Welcome, {user?.signInDetails?.loginId?.split("@")[0].split(".")[0] || "Guest"} 👋</h1>
                 <p>This is your secure area</p>
-                <p>oahdzed</p>
 
                 {/* Carte affichant les trackers */}
                 <Map />
@@ -132,7 +130,6 @@ function Dashboard() {
                     <p>Aucun tracker disponible.</p>
                 )}
             </div>
-            <Footer />
         </div>
     );
 }

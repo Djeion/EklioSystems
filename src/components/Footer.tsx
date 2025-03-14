@@ -5,7 +5,7 @@ const Footer = () => {
 
       <div className="about-content">
         <div className="column">
-          <h2>About</h2>
+          <h2>About Us</h2>
           <p><strong>Owner:</strong> Eklio Systems</p>
           <p><strong>Headquarters Address:</strong>
             <a href="https://www.google.com/maps/search/?api=1&query=45+Rue+de+Villeneuve+94573+Rungis" target="_blank" rel="noopener noreferrer"> 
@@ -28,8 +28,8 @@ const Footer = () => {
       </div>
 
 
-      <h3> - Copyright Eklio 2025 -</h3>
-      <h5> Claire Garcia | Thibault Jeannesson | Judith Rapp</h5>
+      <h5> - Copyright EklioSystems 2025 -</h5>
+      <h6> Claire Garcia | Thibault Jeannesson | Judith Rapp</h6>
     </div>
   );
 };

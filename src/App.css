@@ -234,6 +234,30 @@ body {
   animation: fadeOut 2.2s ease-out forwards; /* Animation de sortie */
 }
 
+@media (max-width: 1024px) {
+  .presentation {
+    font-size: 32px; /* Réduction de la taille du texte */
+    padding: 0 10rem; /* Réduit l'espace horizontal */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .presentation {
+    font-size: 24px; /* Taille du texte plus petite */
+    padding: 0 3rem; /* Réduction des marges latérales */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6); /* Moins d'ombre */
+  }
+}
+
+@media (max-width: 480px) {
+  .presentation {
+    font-size: 20px; /* Texte encore plus petit sur mobile */
+    padding: 0 1.5rem; /* Moins de marge latérale */
+  }
+}
+
+
 /*************************************************************************/
 /* SECTION GEOLOCALISATION                                               */
 /*************************************************************************/
@@ -1003,13 +1027,13 @@ a {
 /*************************************************************************/
 
 .footer {
-  background-color:#9EC3CE;
+  background-color: #9EC3CE;
   color: white;
   text-align: center;
-  width: auto;
+  width: 100%;
   z-index: 2;
   position: relative;
-  padding: 8px 8px;
+  padding: 20px 10px; /* Plus de padding pour respirer */
 }
 
 .footer strong {
@@ -1025,35 +1049,72 @@ a {
   text-decoration: underline;
 }
 
-.about-us{
-
-  color: white;
-  text-align: center;
-  width: 100%; 
-  padding: 10px 0; 
-  z-index: 2;
-  position: relative; 
-  bottom: 0;
-
-}
-
+/* Conteneur du contenu du footer */
 .about-content {
   display: flex;
-  max-width: max-content;
-  margin: 0 22rem;
-  padding: 10px 0;
-  
+  justify-content: center; /* Centre les colonnes */
+  align-items: stretch; /* Étire les colonnes pour qu'elles aient la même hauteur */
+  flex-wrap: wrap; /* Permet le passage en colonne sur mobile */
+  max-width: 90vw; /* Empêche le débordement */
+  width: 100%; /* S'adapte à la largeur de l'écran */
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px; /* Ajoute un espacement entre les colonnes */
+  box-sizing: border-box; /* Évite que le padding agrandisse l'élément */
 }
 
 .column {
-  width: 50%;
+  flex: 1; /* Toutes les colonnes prennent la même largeur */
+  min-width: 250px; /* Évite que les colonnes deviennent trop petites */
+  max-width: 500px; /* Limite la largeur pour éviter le débordement */
   text-align: left;
-  padding: 10px;
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* Alignement vertical */
+  box-sizing: border-box; /* Empêche le padding d'agrandir l'élément */
 }
 
-.column h2 {
-  margin-bottom: 10px;
+
+@media (max-width: 1024px) {
+  .about-content {
+    grid-template-columns: 1fr; /* Une seule colonne sur tablette */
+    text-align: center;
+  }
+
+  .column {
+    width: 100%; /* Prend toute la largeur */
+    text-align: center;
+  }
 }
+
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr; /* Passe en une seule colonne */
+    gap: 10px; /* Réduit l'espacement */
+    padding: 10px;
+  }
+
+  .column {
+    padding: 15px; /* Réduction du padding */
+    font-size: 14px; /* Texte plus petit */
+    border-radius: 8px; /* Coins légèrement moins arrondis */
+  }
+}
+
+@media (max-width: 480px) {
+  .column {
+    font-size: 12px; /* Encore plus petit pour mobile */
+    padding: 10px; /* Padding réduit */
+    border-width: 1px; /* Bordure plus fine */
+  }
+}
+
+
+
 
 /*************************************************************************/
 /* SECTION LOGIN                                                         */
@@ -1091,7 +1152,6 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* S'assure que le contenu commence bien sous le header */
-  background-image: url("assets/background_new2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1107,8 +1167,9 @@ a {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 30vh;
-  background-image: url("assets/background_new2.jpg");
+  background: 
+  linear-gradient(to top, rgba(158, 195, 206, 1), rgba(158, 195, 206, 0) 30%), 
+  url("assets/background_new2.jpg"); /* Dégradé + image */
   background-size: cover; 
   background-repeat: no-repeat;
   background-position: center;
@@ -1188,9 +1249,11 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;  /* Toute la hauteur de l'écran */
+  min-height: 80vh;  /* Toute la hauteur de l'écran */
   width: 100vw;   /* Largeur complète */
-  background-image: url("assets/background_new2.jpg");
+  background: 
+    linear-gradient(to top, rgba(158, 195, 206, 1), rgba(158, 195, 206, 0) 30%), 
+    url("assets/background_new2.jpg"); /* Dégradé + image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

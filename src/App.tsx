@@ -3,6 +3,7 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import Home from "./screens/Home";
 import Dashboard from "./screens/Dashboard";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,10 +19,12 @@ function App() {
                 <Authenticator>
                   <Dashboard />
                 </Authenticator>
+
               </div>
             }
           />
         </Routes>
+        <Footer />
       </Router>
     </Authenticator.Provider>
   );
