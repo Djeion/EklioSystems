@@ -41,7 +41,7 @@ function Home() {
 
         useEffect(() => {
           // Initialisation d'AOS pour l'animation au scroll
-          AOS.init();
+          AOS.init({ duration: 1000 });
       
           // Intersection Observer pour la gestion de l'animation des titres
           const observer = new IntersectionObserver(
