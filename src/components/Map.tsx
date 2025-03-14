@@ -99,7 +99,7 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     <div className="map-container">
       {/* 🔹 Menu déroulant pour sélectionner les trackers */}
       <details className="tracker-menu">
-        <summary>📍 Sélectionner vos Trackers</summary>
+        <summary>📍 Select your Tracker(s)</summary>
         <div className="tracker-list">
           {trackers.map(tracker => (
             <label key={tracker.tracker_id}>
