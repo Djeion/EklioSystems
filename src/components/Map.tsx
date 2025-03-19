@@ -32,7 +32,7 @@ const Map: React.FC<MapProps> = ({ trackers }) => {
     const map = new maplibregl.Map({
       container: mapContainerRef.current!,
       style: styleUrl,
-      center: [2.3522, 48.8566], // Position par défaut (Paris)
+      center: [2.3522, 48.8566], // Default position (Paris)
       zoom: 5,
     });
 
